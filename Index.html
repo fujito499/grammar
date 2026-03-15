@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grammar Guide — ม.4-6 & มหาวิทยาลัย</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #13161d;
+    --surface2: #1a1e28;
+    --border: rgba(255,255,255,0.07);
+    --text: #e8e9ec;
+    --muted: #7a7f8e;
+    --accent: #6c9fff;
+    --accent2: #ff7eb3;
+    --accent3: #7ef2c0;
+    --accent4: #ffc96e;
+    --accent5: #c4b5fd;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans Thai', sans-serif;
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* === NOISE TEXTURE === */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.025;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* === HEADER === */
+  header {
+    position: relative;
+    padding: 80px 48px 60px;
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  header::after {
+    content: 'GRAMMAR';
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Playfair Display', serif;
+    font-size: 160px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.025);
+    letter-spacing: -4px;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  .header-tag {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--accent3);
+    border: 1px solid rgba(126,242,192,0.3);
+    padding: 4px 12px;
+    border-radius: 2px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 900;
+    line-height: 1.05;
+    max-width: 640px;
+    background: linear-gradient(135deg, #e8e9ec 0%, #7a7f8e 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  header p {
+    margin-top: 16px;
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 480px;
+    font-weight: 300;
+  }
+
+  /* === LAYOUT === */
+  .container {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    min-height: calc(100vh - 200px);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* === SIDEBAR === */
+  .sidebar {
+    border-right: 1px solid var(--border);
+    padding: 32px 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  .sidebar::-webkit-scrollbar { width: 4px; }
+  .sidebar::-webkit-scrollbar-track { background: transparent; }
+  .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+  .sidebar-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+    padding: 0 24px 12px;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 24px;
+    cursor: pointer;
+    transition: all 0.15s;
+    border-left: 2px solid transparent;
+    font-size: 14px;
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  .nav-item:hover { color: var(--text); background: rgba(255,255,255,0.03); }
+  .nav-item.active { color: var(--text); border-left-color: var(--accent); background: rgba(108,159,255,0.06); }
+
+  .nav-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    opacity: 0.6;
+  }
+
+  .nav-item.active .nav-dot { opacity: 1; }
+
+  /* === MAIN CONTENT === */
+  .main {
+    padding: 48px;
+    max-width: 900px;
+  }
+
+  /* === SECTION === */
+  .section {
+    display: none;
+    animation: fadeIn 0.3s ease;
+  }
+  .section.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-header {
+    margin-bottom: 40px;
+  }
+
+  .section-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  .section-sub {
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 8px;
+    font-weight: 300;
+  }
+
+  /* === CARDS GRID === */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin: 32px 0;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .card:hover {
+    border-color: rgba(255,255,255,0.15);
+    background: var(--surface2);
+  }
+
+  .card-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .card h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .card p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* === TABLE === */
+  .table-wrap {
+    overflow-x: auto;
+    margin: 24px 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+
+  thead tr {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+
+  thead th {
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    text-transform: uppercase;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: rgba(255,255,255,0.02); }
+
+  td { padding: 12px 16px; vertical-align: top; font-size: 14px; }
+
+  .code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    background: rgba(255,255,255,0.06);
+    padding: 2px 6px;
+    border-radius: 3px;
+    color: var(--accent3);
+  }
+
+  /* === TENSE GRID === */
+  .tense-group {
+    margin-bottom: 40px;
+  }
+
+  .tense-group-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tense-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin-bottom: 12px;
+    display: grid;
+    grid-template-columns: 200px 1fr auto;
+    align-items: center;
+    gap: 16px;
+    transition: all 0.15s;
+    cursor: pointer;
+  }
+
+  .tense-card:hover { border-color: rgba(255,255,255,0.15); background: var(--surface2); }
+
+  .tense-name { font-weight: 600; font-size: 15px; }
+  .tense-use { font-size: 13px; color: var(--muted); font-weight: 300; }
+  .tense-eg {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    text-align: right;
+    line-height: 1.5;
+  }
+
+  /* === CONDITIONAL TABLE === */
+  .cond-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+
+  .cond-header {
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .cond-type {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .cond-body { padding: 16px 24px; }
+  .cond-formula {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .cond-example {
+    font-size: 13px;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  /* === MODAL GRID === */
+  .modal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+    margin: 24px 0;
+  }
+
+  .modal-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    transition: all 0.15s;
+  }
+
+  .modal-card:hover { background: var(--surface2); border-color: rgba(255,255,255,0.15); }
+
+  .modal-word {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .modal-meaning {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 12px;
+    font-weight: 300;
+  }
+
+  .modal-example {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    line-height: 1.6;
+  }
+
+  /* === RELATIVE CLAUSE === */
+  .rel-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 12px;
+    align-items: flex-start;
+  }
+
+  .rel-word {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    font-weight: 500;
+    min-width: 70px;
+    padding: 4px 0;
+    color: var(--accent5);
+  }
+
+  .rel-body { font-size: 14px; }
+  .rel-desc { color: var(--muted); font-size: 13px; margin-bottom: 4px; font-weight: 300; }
+  .rel-ex { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--accent3); }
+
+  /* === BADGE === */
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 500;
+  }
+
+  /* === TIP BOX === */
+  .tip {
+    background: rgba(108,159,255,0.07);
+    border: 1px solid rgba(108,159,255,0.2);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+    padding: 16px 20px;
+    margin: 24px 0;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .tip strong { color: var(--accent); font-weight: 600; }
+
+  .warn {
+    background: rgba(255,126,179,0.07);
+    border: 1px solid rgba(255,126,179,0.2);
+    border-left: 3px solid var(--accent2);
+    border-radius: 0 6px 6px 0;
+    padding: 16px 20px;
+    margin: 24px 0;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .warn strong { color: var(--accent2); }
+
+  /* === QUIZ === */
+  .quiz-q {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+
+  .quiz-q p { font-size: 15px; margin-bottom: 16px; }
+
+  .quiz-options { display: flex; flex-direction: column; gap: 8px; }
+
+  .quiz-opt {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'IBM Plex Sans Thai', sans-serif;
+    color: var(--text);
+    text-align: left;
+  }
+
+  .quiz-opt:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.15); }
+  .quiz-opt.correct { background: rgba(126,242,192,0.1); border-color: var(--accent3); color: var(--accent3); }
+  .quiz-opt.wrong { background: rgba(255,126,179,0.1); border-color: var(--accent2); color: var(--accent2); }
+
+  .quiz-feedback { margin-top: 12px; font-size: 13px; display: none; padding: 8px 12px; border-radius: 4px; }
+
+  /* === PASSIVE === */
+  .passive-row {
+    display: grid;
+    grid-template-columns: 1fr 40px 1fr;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .passive-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 16px;
+    font-size: 13px;
+  }
+
+  .passive-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .passive-arrow {
+    text-align: center;
+    font-size: 18px;
+    color: var(--muted);
+  }
+
+  /* === REPORTED === */
+  .report-table {
+    width: 100%;
+    margin: 24px 0;
+  }
+
+  .report-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .report-cell {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 16px;
+    font-size: 13px;
+  }
+
+  .report-cell .label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  .highlight { color: var(--accent4); font-weight: 600; }
+
+  /* === PARTS === */
+  .pos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin: 24px 0;
+  }
+
+  .pos-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    transition: all 0.15s;
+  }
+
+  .pos-card:hover { background: var(--surface2); }
+
+  .pos-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  .pos-name { font-weight: 600; font-size: 15px; margin-bottom: 2px; }
+  .pos-thai { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+  .pos-ex {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* === DIVIDER === */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 32px 0;
+  }
+
+  h2.sub {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 32px 0 16px;
+  }
+
+  /* === SCROLLBAR === */
+  .main::-webkit-scrollbar { width: 4px; }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 768px) {
+    header { padding: 48px 24px 40px; }
+    .container { grid-template-columns: 1fr; }
+    .sidebar { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--border); padding: 16px 0; overflow-x: auto; display: flex; flex-direction: row; gap: 4px; }
+    .sidebar-label { display: none; }
+    .nav-item { white-space: nowrap; border-left: none; border-bottom: 2px solid transparent; padding: 8px 16px; }
+    .nav-item.active { border-bottom-color: var(--accent); border-left: none; background: transparent; }
+    .main { padding: 24px; }
+    .tense-card { grid-template-columns: 1fr; }
+    .tense-eg { text-align: left; }
+    .passive-row { grid-template-columns: 1fr; }
+    .passive-arrow { transform: rotate(90deg); }
+    .report-row { grid-template-columns: 1fr; }
+    header::after { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-tag">ม.4–6 · มหาวิทยาลัย · สอบเข้า</div>
+  <h1>English Grammar<br>Complete Guide</h1>
+  <p>สรุปแกรมม่าภาษาอังกฤษฉบับสมบูรณ์ ครอบคลุมทุกหัวข้อที่ออกสอบ</p>
+</header>
+
+<div class="container">
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <div class="sidebar-label">หัวข้อ</div>
+    <div class="nav-item active" data-section="pos" onclick="show('pos',this)">
+      <div class="nav-dot" style="background:#6c9fff"></div> Parts of Speech
+    </div>
+    <div class="nav-item" data-section="tenses" onclick="show('tenses',this)">
+      <div class="nav-dot" style="background:#ff7eb3"></div> Tenses
+    </div>
+    <div class="nav-item" data-section="sentence" onclick="show('sentence',this)">
+      <div class="nav-dot" style="background:#7ef2c0"></div> Sentence Structure
+    </div>
+    <div class="nav-item" data-section="passive" onclick="show('passive',this)">
+      <div class="nav-dot" style="background:#ffc96e"></div> Passive Voice
+    </div>
+    <div class="nav-item" data-section="conditional" onclick="show('conditional',this)">
+      <div class="nav-dot" style="background:#c4b5fd"></div> Conditionals
+    </div>
+    <div class="nav-item" data-section="reported" onclick="show('reported',this)">
+      <div class="nav-dot" style="background:#ff7eb3"></div> Reported Speech
+    </div>
+    <div class="nav-item" data-section="modal" onclick="show('modal',this)">
+      <div class="nav-dot" style="background:#6c9fff"></div> Modal Verbs
+    </div>
+    <div class="nav-item" data-section="relative" onclick="show('relative',this)">
+      <div class="nav-dot" style="background:#7ef2c0"></div> Relative Clauses
+    </div>
+    <div class="nav-item" data-section="quiz" onclick="show('quiz',this)">
+      <div class="nav-dot" style="background:#ffc96e"></div> แบบทดสอบ
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- PARTS OF SPEECH -->
+    <section class="section active" id="pos">
+      <div class="section-header">
+        <div class="section-num">01 / 08</div>
+        <div class="section-title">Parts of Speech</div>
+        <div class="section-sub">ชนิดของคำ 8 ประเภท — รากฐานของแกรมม่าทั้งหมด</div>
+      </div>
+
+      <div class="tip"><strong>ทำไมต้องรู้?</strong> ถ้าเราไม่รู้ว่าคำไหนเป็น noun หรือ verb เราจะไม่สามารถสร้างประโยคที่ถูกต้องได้เลย ทุกหัวข้อแกรมม่าอื่นล้วนอาศัย parts of speech เป็นพื้นฐาน</div>
+
+      <div class="pos-grid">
+        <div class="pos-card">
+          <div class="pos-icon" style="background:rgba(108,159,255,0.15);color:var(--accent)">N</div>
+          <div class="pos-name">Noun</div>
+          <div class="pos-thai">คำนาม</div>
+          <div class="pos-ex">dog, happiness,<br>Thailand, idea</div>
+        </div>
+        <div class="pos-card">
+          <div class="pos-icon" style="background:rgba(255,126,179,0.15);color:var(--accent2)">Pro</div>
+          <div class="pos-name">Pronoun</div>
+          <div class="pos-thai">คำสรรพนาม</div>
+          <div class="pos-ex">he, she, they,<br>it, we, I</div>
+        </div>
+        <div class="pos-card">
+          <div class="pos-icon" style="background:rgba(126,242,192,0.15);color:var(--accent3)">V</div>
+          <div class="pos-name">Verb</div>
+          <div class="pos-thai">คำกริยา</div>
+          <div class="pos-ex">run, is, have,<br>think, sleep</div>
+        </div>
+        <div class="pos-card">
+          <div class="pos-icon" style="background:rgba(255,201,110,0.15);color:var(--accent4)">Adj</div>
+          <div class="pos-name">Adjective</div>
+          <div class="pos-thai">คำคุณศัพท์</div>
+          <div class="pos-ex">big, happy, red,<br>smart, cold</div>
+        </div>
+        <div class="pos-card">
+          <div class="pos-icon" style="background:rgba(196,181,253,0.15);color:var(--accent5)">Adv</div>
+          <div class="pos-name">Adverb</div>
+          <div class="pos-thai">คำวิเศษณ์</div>
+          <div class="pos-ex">quickly, very,<br>always, never</div>
+        </div>
+        <div class="pos-card">
+          <div class="pos-icon" style="background:rgba(108,159,255,0.15);color:var(--accent)">Pre</div>
+          <div class="pos-name">Preposition</div>
+          <div class="pos-thai">คำบุพบท</div>
+          <div class="pos-ex">in, on, at, by,<br>with, under</div>
+        </div>
+        <div class="pos-card">
+          <div class="pos-icon" style="background:rgba(255,126,179,0.15);color:var(--accent2)">Con</div>
+          <div class="pos-name">Conjunction</div>
+          <div class="pos-thai">คำสันธาน</div>
+          <div class="pos-ex">and, but, or,<br>because, although</div>
+        </div>
+        <div class="pos-card">
+          <div class="pos-icon" style="background:rgba(126,242,192,0.15);color:var(--accent3)">Art</div>
+          <div class="pos-name">Article</div>
+          <div class="pos-thai">คำนำหน้านาม</div>
+          <div class="pos-ex">a (ไม่เจาะจง)<br>an, the (เจาะจง)</div>
+        </div>
+      </div>
+
+      <h2 class="sub">a vs an vs the</h2>
+      <div class="tip">
+        <strong>a/an</strong> = Indefinite article ไม่เจาะจง ใช้กับ singular countable noun<br>
+        — <span class="code">a</span> ใช้ก่อนพยัญชนะเสียง: a dog, a university<br>
+        — <span class="code">an</span> ใช้ก่อนเสียงสระ: an apple, an hour<br><br>
+        <strong>the</strong> = Definite article เจาะจง รู้แล้วว่าอันไหน: The sun, the book I gave you
+      </div>
+    </section>
+
+    <!-- TENSES -->
+    <section class="section" id="tenses">
+      <div class="section-header">
+        <div class="section-num">02 / 08</div>
+        <div class="section-title">Tenses</div>
+        <div class="section-sub">กาล 12 ประเภท — สำคัญที่สุดสำหรับสอบ</div>
+      </div>
+
+      <div class="tense-group">
+        <div class="tense-group-title" style="color:var(--accent)">▸ Present — ปัจจุบัน</div>
+
+        <div class="tense-card">
+          <div><div class="tense-name">Simple Present</div><div class="tense-use">ความจริง / นิสัย / ตารางเวลา</div></div>
+          <div style="font-size:13px;color:var(--muted)">S + V(s/es)<br><span style="color:var(--accent5)">signal: always, usually, every day</span></div>
+          <div class="tense-eg">She eats rice<br>every day.</div>
+        </div>
+
+        <div class="tense-card">
+          <div><div class="tense-name">Present Continuous</div><div class="tense-use">กำลังทำอยู่ขณะพูด</div></div>
+          <div style="font-size:13px;color:var(--muted)">S + is/am/are + V-ing<br><span style="color:var(--accent5)">signal: now, right now, at the moment</span></div>
+          <div class="tense-eg">She is eating<br>rice now.</div>
+        </div>
+
+        <div class="tense-card">
+          <div><div class="tense-name">Present Perfect</div><div class="tense-use">เคยทำ / เพิ่งทำ / ยังทำอยู่</div></div>
+          <div style="font-size:13px;color:var(--muted)">S + have/has + V3<br><span style="color:var(--accent5)">signal: already, yet, ever, never, since, for</span></div>
+          <div class="tense-eg">She has eaten<br>already.</div>
+        </div>
+
+        <div class="tense-card">
+          <div><div class="tense-name">Present Perfect Continuous</div><div class="tense-use">ทำมาสักพักจนถึงปัจจุบัน</div></div>
+          <div style="font-size:13px;color:var(--muted)">S + have/has been + V-ing<br><span style="color:var(--accent5)">signal: for 2 hours, since morning</span></div>
+          <div class="tense-eg">She has been<br>waiting for 2 hrs.</div>
+        </div>
+      </div>
+
+      <div class="tense-group">
+        <div class="tense-group-title" style="color:var(--accent2)">▸ Past — อดีต</div>
+
+        <div class="tense-card">
+          <div><div class="tense-name">Simple Past</div><div class="tense-use">ทำในอดีต เสร็จสิ้นแล้ว</div></div>
+          <div style="font-size:13px;color:var(--muted)">S + V2<br><span style="color:var(--accent5)">signal: yesterday, last night, in 2010</span></div>
+          <div class="tense-eg">She ate rice<br>yesterday.</div>
+        </div>
+
+        <div class="tense-card">
+          <div><div class="tense-name">Past Continuous</div><div class="tense-use">กำลังทำอยู่ในอดีต</div></div>
+          <div style="font-size:13px;color:var(--muted)">S + was/were + V-ing<br><span style="color:var(--accent5)">signal: while, when (คู่กับ simple past)</span></div>
+          <div class="tense-eg">She was sleeping<br>when I called.</div>
+        </div>
+
+        <div class="tense-card">
+          <div><div class="tense-name">Past Perfect</div><div class="tense-use">ทำก่อนอีกเหตุการณ์ในอดีต</div></div>
+          <div style="font-size:13px;color:var(--muted)">S + had + V3<br><span style="color:var(--accent5)">signal: before, after, by the time</span></div>
+          <div class="tense-eg">She had eaten<br>before he came.</div>
+        </div>
+
+        <div class="tense-card">
+          <div><div class="tense-name">Past Perfect Continuous</div><div class="tense-use">ทำมาก่อนเหตุการณ์หนึ่งในอดีต</div></div>
+          <div style="font-size:13px;color:var(--muted)">S + had been + V-ing</div>
+          <div class="tense-eg">She had been<br>studying for 3 hrs.</div>
+        </div>
+      </div>
+
+      <div class="tense-group">
+        <div class="tense-group-title" style="color:var(--accent3)">▸ Future — อนาคต</div>
+
+        <div class="tense-card">
+          <div><div class="tense-name">Simple Future</div><div class="tense-use">จะทำ / ตัดสินใจทันที</div></div>
+          <div style="font-size:13px;color:var(--muted)">S + will + V1<br><span style="color:var(--accent5)">signal: tomorrow, next week, soon</span></div>
+          <div class="tense-eg">She will go<br>tomorrow.</div>
+        </div>
+
+        <div class="tense-card">
+          <div><div class="tense-name">Future Continuous</div><div class="tense-use">จะกำลังทำอยู่ในอนาคต</div></div>
+          <div style="font-size:13px;color:var(--muted)">S + will be + V-ing</div>
+          <div class="tense-eg">She will be<br>sleeping at 10.</div>
+        </div>
+
+        <div class="tense-card">
+          <div><div class="tense-name">Future Perfect</div><div class="tense-use">จะทำเสร็จก่อนเวลาที่กำหนด</div></div>
+          <div style="font-size:13px;color:var(--muted)">S + will have + V3<br><span style="color:var(--accent5)">signal: by + เวลาอนาคต</span></div>
+          <div class="tense-eg">She will have<br>finished by noon.</div>
+        </div>
+
+        <div class="tense-card">
+          <div><div class="tense-name">Future Perfect Continuous</div><div class="tense-use">จะทำมานาน ณ เวลาอนาคต</div></div>
+          <div style="font-size:13px;color:var(--muted)">S + will have been + V-ing</div>
+          <div class="tense-eg">By June, she will have<br>been working 2 years.</div>
+        </div>
+      </div>
+
+      <div class="warn"><strong>⚠ ข้อระวัง:</strong> กริยาบางตัวไม่ใช้ Continuous เช่น know, love, like, believe, want, understand — ใช้ Simple แทนเสมอ</div>
+    </section>
+
+    <!-- SENTENCE STRUCTURE -->
+    <section class="section" id="sentence">
+      <div class="section-header">
+        <div class="section-num">03 / 08</div>
+        <div class="section-title">Sentence Structure</div>
+        <div class="section-sub">โครงสร้างประโยค — จากง่ายไปซับซ้อน</div>
+      </div>
+
+      <div class="tip"><strong>โครงสร้างพื้นฐาน:</strong> S + V + O (ประธาน + กริยา + กรรม)</div>
+
+      <div class="cards">
+        <div class="card">
+          <div class="card-label" style="color:var(--accent)">Simple Sentence</div>
+          <h3>ประโยคเดียว</h3>
+          <p>มี subject และ verb เพียงชุดเดียว</p>
+          <div style="margin-top:12px;" class="code">I love music.</div>
+        </div>
+        <div class="card">
+          <div class="card-label" style="color:var(--accent2)">Compound Sentence</div>
+          <h3>ประโยคเชิงประกอบ</h3>
+          <p>เชื่อม 2 independent clauses ด้วย and / but / or / so</p>
+          <div style="margin-top:12px;" class="code">I love music, but she loves sport.</div>
+        </div>
+        <div class="card">
+          <div class="card-label" style="color:var(--accent3)">Complex Sentence</div>
+          <h3>ประโยคซับซ้อน</h3>
+          <p>มี subordinate clause (because, although, when, if...)</p>
+          <div style="margin-top:12px;" class="code">Although it rained, we went out.</div>
+        </div>
+        <div class="card">
+          <div class="card-label" style="color:var(--accent4)">Compound-Complex</div>
+          <h3>ผสมทั้งสองแบบ</h3>
+          <p>มีทั้ง compound และ subordinate clause</p>
+          <div style="margin-top:12px;" class="code">She studied hard because she wanted to pass, and she did.</div>
+        </div>
+      </div>
+
+      <h2 class="sub">Subject–Verb Agreement</h2>
+      <div class="warn"><strong>⚠ จุดที่พลาดบ่อย:</strong><br>
+        — Singular subject → V(s/es): <span class="code">She runs.</span><br>
+        — Plural subject → V ธรรมดา: <span class="code">They run.</span><br>
+        — Either/Neither + singular → singular verb: <span class="code">Neither of them is here.</span><br>
+        — Each/Every + singular → singular verb: <span class="code">Each student has a book.</span>
+      </div>
+    </section>
+
+    <!-- PASSIVE VOICE -->
+    <section class="section" id="passive">
+      <div class="section-header">
+        <div class="section-num">04 / 08</div>
+        <div class="section-title">Passive Voice</div>
+        <div class="section-sub">ประโยคกรรมวาจก — เน้นที่กรรม ไม่ใช่ผู้กระทำ</div>
+      </div>
+
+      <div class="tip"><strong>สูตร:</strong> S + <span style="color:var(--accent3)">to be</span> + <span style="color:var(--accent4)">V3</span> + (by + ผู้กระทำ)</div>
+
+      <div style="margin:24px 0">
+        <div class="passive-row">
+          <div class="passive-box">
+            <div class="passive-label" style="color:var(--accent)">Active</div>
+            <div>She <strong>writes</strong> a letter.</div>
+          </div>
+          <div class="passive-arrow">→</div>
+          <div class="passive-box">
+            <div class="passive-label" style="color:var(--accent3)">Passive</div>
+            <div>A letter <strong>is written</strong> by her.</div>
+          </div>
+        </div>
+
+        <div class="passive-row">
+          <div class="passive-box">
+            <div class="passive-label" style="color:var(--accent)">Active</div>
+            <div>He <strong>broke</strong> the window.</div>
+          </div>
+          <div class="passive-arrow">→</div>
+          <div class="passive-box">
+            <div class="passive-label" style="color:var(--accent3)">Passive</div>
+            <div>The window <strong>was broken</strong> by him.</div>
+          </div>
+        </div>
+
+        <div class="passive-row">
+          <div class="passive-box">
+            <div class="passive-label" style="color:var(--accent)">Active</div>
+            <div>They <strong>are building</strong> a house.</div>
+          </div>
+          <div class="passive-arrow">→</div>
+          <div class="passive-box">
+            <div class="passive-label" style="color:var(--accent3)">Passive</div>
+            <div>A house <strong>is being built</strong>.</div>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="sub">ตาราง to be ตาม Tense</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Tense</th><th>Active</th><th>Passive (to be + V3)</th></tr></thead>
+          <tbody>
+            <tr><td>Simple Present</td><td class="code">writes</td><td class="code">is written</td></tr>
+            <tr><td>Present Continuous</td><td class="code">is writing</td><td class="code">is being written</td></tr>
+            <tr><td>Present Perfect</td><td class="code">has written</td><td class="code">has been written</td></tr>
+            <tr><td>Simple Past</td><td class="code">wrote</td><td class="code">was written</td></tr>
+            <tr><td>Past Continuous</td><td class="code">was writing</td><td class="code">was being written</td></tr>
+            <tr><td>Past Perfect</td><td class="code">had written</td><td class="code">had been written</td></tr>
+            <tr><td>Simple Future</td><td class="code">will write</td><td class="code">will be written</td></tr>
+            <tr><td>Modal</td><td class="code">can write</td><td class="code">can be written</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- CONDITIONALS -->
+    <section class="section" id="conditional">
+      <div class="section-header">
+        <div class="section-num">05 / 08</div>
+        <div class="section-title">Conditionals</div>
+        <div class="section-sub">ประโยคเงื่อนไข 4 ประเภท</div>
+      </div>
+
+      <div class="cond-card">
+        <div class="cond-header">
+          <span class="cond-type badge" style="background:rgba(126,242,192,0.15);color:var(--accent3)">Type 0</span>
+          <span style="font-size:14px">ความจริงทั่วไป / กฎธรรมชาติ</span>
+        </div>
+        <div class="cond-body">
+          <div class="cond-formula">If + Simple Present, Simple Present</div>
+          <div class="cond-example">"If you heat water, it boils." — เป็นความจริงเสมอ</div>
+        </div>
+      </div>
+
+      <div class="cond-card">
+        <div class="cond-header">
+          <span class="cond-type badge" style="background:rgba(108,159,255,0.15);color:var(--accent)">Type 1</span>
+          <span style="font-size:14px">เป็นไปได้จริง (Real condition)</span>
+        </div>
+        <div class="cond-body">
+          <div class="cond-formula">If + Simple Present, will + V1</div>
+          <div class="cond-example">"If it rains, I will stay home." — อาจเกิดขึ้นจริง</div>
+        </div>
+      </div>
+
+      <div class="cond-card">
+        <div class="cond-header">
+          <span class="cond-type badge" style="background:rgba(255,201,110,0.15);color:var(--accent4)">Type 2</span>
+          <span style="font-size:14px">สมมติ ไม่จริงในปัจจุบัน</span>
+        </div>
+        <div class="cond-body">
+          <div class="cond-formula">If + Simple Past, would + V1</div>
+          <div class="cond-example">"If I were rich, I would travel the world." — สมมติ ตอนนี้ไม่ได้รวย</div>
+          <div style="margin-top:8px;font-size:12px;color:var(--accent4)">⚠ ใช้ were ทุก subject (ไม่ใช่ was) ในภาษาเขียนทางการ</div>
+        </div>
+      </div>
+
+      <div class="cond-card">
+        <div class="cond-header">
+          <span class="cond-type badge" style="background:rgba(255,126,179,0.15);color:var(--accent2)">Type 3</span>
+          <span style="font-size:14px">สมมติในอดีต — ไม่มีทางเป็นจริงแล้ว</span>
+        </div>
+        <div class="cond-body">
+          <div class="cond-formula">If + Past Perfect, would have + V3</div>
+          <div class="cond-example">"If I had studied harder, I would have passed." — เสียใจกับสิ่งที่ผ่านไปแล้ว</div>
+        </div>
+      </div>
+
+      <div class="tip" style="margin-top:24px"><strong>Mixed Conditional:</strong> ผสม Type 2 + Type 3<br>
+        <span class="code">If I had studied medicine (past), I would be a doctor now (present).</span><br>
+        ใช้เมื่อเงื่อนไขในอดีต ส่งผลต่อปัจจุบัน
+      </div>
+    </section>
+
+    <!-- REPORTED SPEECH -->
+    <section class="section" id="reported">
+      <div class="section-header">
+        <div class="section-num">06 / 08</div>
+        <div class="section-title">Reported Speech</div>
+        <div class="section-sub">คำพูดรายงาน — เปลี่ยน Tense ถอยหลัง 1 ขั้น</div>
+      </div>
+
+      <h2 class="sub">การเปลี่ยน Tense</h2>
+      <div class="report-table">
+        <div class="report-row">
+          <div class="report-cell">
+            <div class="label">Direct Speech</div>
+            <div>"I <span class="highlight">am</span> tired."</div>
+          </div>
+          <div class="report-cell">
+            <div class="label">Reported Speech</div>
+            <div>He said he <span class="highlight">was</span> tired.</div>
+          </div>
+        </div>
+        <div class="report-row">
+          <div class="report-cell">
+            <div class="label">Direct Speech</div>
+            <div>"She <span class="highlight">will come</span>."</div>
+          </div>
+          <div class="report-cell">
+            <div class="label">Reported Speech</div>
+            <div>He said she <span class="highlight">would come</span>.</div>
+          </div>
+        </div>
+        <div class="report-row">
+          <div class="report-cell">
+            <div class="label">Direct Speech</div>
+            <div>"They <span class="highlight">have finished</span>."</div>
+          </div>
+          <div class="report-cell">
+            <div class="label">Reported Speech</div>
+            <div>He said they <span class="highlight">had finished</span>.</div>
+          </div>
+        </div>
+        <div class="report-row">
+          <div class="report-cell">
+            <div class="label">Direct Speech</div>
+            <div>"I <span class="highlight">went</span> there."</div>
+          </div>
+          <div class="report-cell">
+            <div class="label">Reported Speech</div>
+            <div>She said she <span class="highlight">had gone</span> there.</div>
+          </div>
+        </div>
+        <div class="report-row">
+          <div class="report-cell">
+            <div class="label">Direct Speech</div>
+            <div>"<span class="highlight">Can</span> you help?"</div>
+          </div>
+          <div class="report-cell">
+            <div class="label">Reported Speech</div>
+            <div>He asked if she <span class="highlight">could</span> help.</div>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="sub">การเปลี่ยน Pronoun & Time Expressions</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Direct</th><th>Reported</th></tr></thead>
+          <tbody>
+            <tr><td>I, me, my</td><td>he/she, him/her, his/her</td></tr>
+            <tr><td>now</td><td>then</td></tr>
+            <tr><td>today</td><td>that day</td></tr>
+            <tr><td>yesterday</td><td>the day before</td></tr>
+            <tr><td>tomorrow</td><td>the next day</td></tr>
+            <tr><td>here</td><td>there</td></tr>
+            <tr><td>this</td><td>that</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 class="sub">Commands & Questions</h2>
+      <div class="cards">
+        <div class="card">
+          <div class="card-label" style="color:var(--accent2)">Commands</div>
+          <h3>told + to + V1</h3>
+          <p>"Close the door." → She told him <strong>to close</strong> the door.</p>
+        </div>
+        <div class="card">
+          <div class="card-label" style="color:var(--accent3)">Yes/No Questions</div>
+          <h3>asked + if/whether</h3>
+          <p>"Are you ready?" → He asked if I <strong>was</strong> ready.</p>
+        </div>
+        <div class="card">
+          <div class="card-label" style="color:var(--accent)">Wh-Questions</div>
+          <h3>asked + Wh-word + S + V</h3>
+          <p>"Where do you live?" → She asked where I <strong>lived</strong>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODAL VERBS -->
+    <section class="section" id="modal">
+      <div class="section-header">
+        <div class="section-num">07 / 08</div>
+        <div class="section-title">Modal Verbs</div>
+        <div class="section-sub">กริยาช่วย — แสดงความสามารถ ขออนุญาต ความเป็นไปได้</div>
+      </div>
+
+      <div class="modal-grid">
+        <div class="modal-card">
+          <div class="modal-word" style="color:var(--accent)">can</div>
+          <div class="modal-meaning">ความสามารถ (ปัจจุบัน)</div>
+          <div class="modal-example" style="color:var(--muted)">I can swim.<br>Can you help me?</div>
+        </div>
+        <div class="modal-card">
+          <div class="modal-word" style="color:var(--accent)">could</div>
+          <div class="modal-meaning">ความสามารถ (อดีต) / สุภาพ</div>
+          <div class="modal-example" style="color:var(--muted)">I could swim at 5.<br>Could you pass the salt?</div>
+        </div>
+        <div class="modal-card">
+          <div class="modal-word" style="color:var(--accent3)">may</div>
+          <div class="modal-meaning">ขออนุญาต / ความเป็นไปได้</div>
+          <div class="modal-example" style="color:var(--muted)">May I leave?<br>It may rain today.</div>
+        </div>
+        <div class="modal-card">
+          <div class="modal-word" style="color:var(--accent3)">might</div>
+          <div class="modal-meaning">ความเป็นไปได้ (น้อยกว่า may)</div>
+          <div class="modal-example" style="color:var(--muted)">She might come.<br>It might not work.</div>
+        </div>
+        <div class="modal-card">
+          <div class="modal-word" style="color:var(--accent2)">must</div>
+          <div class="modal-meaning">ความจำเป็น / คาดเดาแน่ใจ</div>
+          <div class="modal-example" style="color:var(--muted)">You must wear a belt.<br>He must be tired.</div>
+        </div>
+        <div class="modal-card">
+          <div class="modal-word" style="color:var(--accent4)">should</div>
+          <div class="modal-meaning">ควร / คำแนะนำ</div>
+          <div class="modal-example" style="color:var(--muted)">You should sleep early.<br>She should see a doctor.</div>
+        </div>
+        <div class="modal-card">
+          <div class="modal-word" style="color:var(--accent5)">would</div>
+          <div class="modal-meaning">เงื่อนไข / ขอร้องสุภาพ</div>
+          <div class="modal-example" style="color:var(--muted)">I would help if I could.<br>Would you like coffee?</div>
+        </div>
+        <div class="modal-card">
+          <div class="modal-word" style="color:var(--muted)">shall</div>
+          <div class="modal-meaning">ข้อเสนอ / อนาคต (ทางการ)</div>
+          <div class="modal-example" style="color:var(--muted)">Shall we dance?<br>I shall return.</div>
+        </div>
+      </div>
+
+      <h2 class="sub">Modal + have + V3 (อดีต)</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>รูปแบบ</th><th>ความหมาย</th><th>ตัวอย่าง</th></tr></thead>
+          <tbody>
+            <tr><td class="code">should have + V3</td><td>ควรทำ (แต่ไม่ได้ทำ)</td><td>You should have studied more.</td></tr>
+            <tr><td class="code">must have + V3</td><td>น่าจะเป็นแน่ (อดีต)</td><td>He must have forgotten.</td></tr>
+            <tr><td class="code">could have + V3</td><td>น่าจะทำได้ (แต่ไม่ได้ทำ)</td><td>She could have won.</td></tr>
+            <tr><td class="code">might have + V3</td><td>อาจจะได้ทำ (ไม่แน่ใจ)</td><td>He might have left already.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- RELATIVE CLAUSES -->
+    <section class="section" id="relative">
+      <div class="section-header">
+        <div class="section-num">08 / 08</div>
+        <div class="section-title">Relative Clauses</div>
+        <div class="section-sub">อนุประโยคสัมพันธ์ — เพิ่มข้อมูลให้คำนาม</div>
+      </div>
+
+      <div style="margin:24px 0">
+        <div class="rel-row">
+          <div class="rel-word">who</div>
+          <div class="rel-body">
+            <div class="rel-desc">ใช้กับ คน (subject)</div>
+            <div class="rel-ex">The man who called you is here.</div>
+          </div>
+        </div>
+        <div class="rel-row">
+          <div class="rel-word">whom</div>
+          <div class="rel-body">
+            <div class="rel-desc">ใช้กับ คน (object) — ทางการ</div>
+            <div class="rel-ex">The woman whom I met was kind.</div>
+          </div>
+        </div>
+        <div class="rel-row">
+          <div class="rel-word">which</div>
+          <div class="rel-body">
+            <div class="rel-desc">ใช้กับ สิ่งของ / สัตว์</div>
+            <div class="rel-ex">The book which I read was great.</div>
+          </div>
+        </div>
+        <div class="rel-row">
+          <div class="rel-word">that</div>
+          <div class="rel-body">
+            <div class="rel-desc">ใช้กับ คน / สิ่งของ (Defining clause เท่านั้น)</div>
+            <div class="rel-ex">The car that I drive is old.</div>
+          </div>
+        </div>
+        <div class="rel-row">
+          <div class="rel-word">whose</div>
+          <div class="rel-body">
+            <div class="rel-desc">แสดงความเป็นเจ้าของ</div>
+            <div class="rel-ex">The student whose bag is red won first prize.</div>
+          </div>
+        </div>
+        <div class="rel-row">
+          <div class="rel-word">where</div>
+          <div class="rel-body">
+            <div class="rel-desc">ใช้กับ สถานที่</div>
+            <div class="rel-ex">The city where I grew up is beautiful.</div>
+          </div>
+        </div>
+        <div class="rel-row">
+          <div class="rel-word">when</div>
+          <div class="rel-body">
+            <div class="rel-desc">ใช้กับ เวลา</div>
+            <div class="rel-ex">I remember the day when we first met.</div>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="sub">Defining vs Non-defining</h2>
+      <div class="cards">
+        <div class="card">
+          <div class="card-label" style="color:var(--accent)">Defining Clause</div>
+          <h3>ไม่มีจุลภาค (,)</h3>
+          <p>ข้อมูลจำเป็น — ถ้าตัดออกประโยคความหมายเปลี่ยน</p>
+          <div style="margin-top:10px" class="code">The student who studies hard will pass.</div>
+        </div>
+        <div class="card">
+          <div class="card-label" style="color:var(--accent2)">Non-defining Clause</div>
+          <h3>มีจุลภาค (,) คั่น</h3>
+          <p>ข้อมูลเพิ่มเติม — ตัดออกได้ ห้ามใช้ that</p>
+          <div style="margin-top:10px" class="code">My sister, who lives in London, is a doctor.</div>
+        </div>
+      </div>
+
+      <div class="warn"><strong>⚠ ห้ามใช้ that</strong> ใน Non-defining clause และหลัง preposition เช่น: <span class="code">the person to whom I spoke</span> (ไม่ใช่ to that)</div>
+    </section>
+
+    <!-- QUIZ -->
+    <section class="section" id="quiz">
+      <div class="section-header">
+        <div class="section-num">★</div>
+        <div class="section-title">แบบทดสอบ</div>
+        <div class="section-sub">ทดสอบความเข้าใจ — เลือกคำตอบที่ถูกต้อง</div>
+      </div>
+
+      <div id="quiz-container"></div>
+
+      <div style="margin-top:32px;display:flex;gap:12px;align-items:center">
+        <button onclick="resetQuiz()" style="font-family:'IBM Plex Sans Thai',sans-serif;background:var(--surface);border:1px solid var(--border);color:var(--text);padding:10px 24px;border-radius:6px;cursor:pointer;font-size:14px;transition:all 0.15s" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='var(--surface)'">เริ่มใหม่</button>
+        <span id="score-display" style="font-size:14px;color:var(--muted)"></span>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+// NAVIGATION
+function show(id, el) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  el.classList.add('active');
+}
+
+// QUIZ DATA
+const questions = [
+  {
+    q: "She ______ to school every day. (Simple Present — นิสัย)",
+    opts: ["go", "goes", "is going", "went"],
+    ans: 1,
+    exp: "Subject = She (3rd person singular) → ต้องเติม -s → goes"
+  },
+  {
+    q: "By the time he arrived, she ______ already. (Past Perfect)",
+    opts: ["left", "has left", "had left", "was leaving"],
+    ans: 2,
+    exp: "ใช้ Past Perfect เพราะทำก่อนอีกเหตุการณ์ในอดีต → had left"
+  },
+  {
+    q: "If I ______ a million dollars, I would travel the world. (Type 2 Conditional)",
+    opts: ["have", "had", "will have", "would have"],
+    ans: 1,
+    exp: "Type 2 = If + Simple Past → had (สมมติไม่จริงในปัจจุบัน)"
+  },
+  {
+    q: "The window ______ by the storm last night. (Passive — Simple Past)",
+    opts: ["broke", "is broken", "was broken", "has been broken"],
+    ans: 2,
+    exp: "Passive Simple Past = was/were + V3 → was broken"
+  },
+  {
+    q: 'She said, "I am happy." → She said that she ______ happy.',
+    opts: ["is", "was", "were", "has been"],
+    ans: 1,
+    exp: "Reported Speech: am → was (ถอย tense หลังหนึ่งขั้น)"
+  },
+  {
+    q: "You ______ study harder. Your exam is tomorrow! (Modal — แนะนำ)",
+    opts: ["can", "must", "should", "will"],
+    ans: 2,
+    exp: "should = ควร / คำแนะนำ"
+  },
+  {
+    q: "The man ______ car was stolen called the police. (Relative Clause — แสดงเจ้าของ)",
+    opts: ["who", "which", "whose", "whom"],
+    ans: 2,
+    exp: "whose ใช้แสดงความเป็นเจ้าของ → whose car"
+  },
+  {
+    q: "I ______ here for 3 hours when she finally arrived. (Past Perfect Continuous)",
+    opts: ["waited", "was waiting", "had been waiting", "have been waiting"],
+    ans: 2,
+    exp: "Past Perfect Continuous = had been + V-ing ใช้เมื่อทำมาก่อนเหตุการณ์ในอดีต"
+  },
+];
+
+let answered = new Array(questions.length).fill(false);
+let correct = 0;
+
+function buildQuiz() {
+  const c = document.getElementById('quiz-container');
+  c.innerHTML = '';
+  questions.forEach((q, i) => {
+    const div = document.createElement('div');
+    div.className = 'quiz-q';
+    div.id = 'q-' + i;
+    div.innerHTML = `
+      <p><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);margin-right:8px;">Q${i+1}</span>${q.q}</p>
+      <div class="quiz-options">
+        ${q.opts.map((o, j) => `<button class="quiz-opt" onclick="answer(${i},${j})">${String.fromCharCode(65+j)}. ${o}</button>`).join('')}
+      </div>
+      <div class="quiz-feedback" id="fb-${i}"></div>
+    `;
+    c.appendChild(div);
+  });
+  updateScore();
+}
+
+function answer(qi, choice) {
+  if (answered[qi]) return;
+  answered[qi] = true;
+  const q = questions[qi];
+  const btns = document.querySelectorAll(`#q-${qi} .quiz-opt`);
+  btns.forEach((b, j) => {
+    if (j === q.ans) b.classList.add('correct');
+    else if (j === choice && choice !== q.ans) b.classList.add('wrong');
+    b.disabled = true;
+  });
+  const fb = document.getElementById('fb-' + qi);
+  if (choice === q.ans) {
+    correct++;
+    fb.style.display = 'block';
+    fb.style.background = 'rgba(126,242,192,0.08)';
+    fb.style.color = 'var(--accent3)';
+    fb.textContent = '✓ ถูกต้อง — ' + q.exp;
+  } else {
+    fb.style.display = 'block';
+    fb.style.background = 'rgba(255,126,179,0.08)';
+    fb.style.color = 'var(--accent2)';
+    fb.textContent = '✗ ผิด — ' + q.exp;
+  }
+  updateScore();
+}
+
+function updateScore() {
+  const done = answered.filter(Boolean).length;
+  const disp = document.getElementById('score-display');
+  if (done === 0) { disp.textContent = ''; return; }
+  disp.textContent = `${done}/${questions.length} ข้อ — ถูก ${correct} ข้อ`;
+}
+
+function resetQuiz() {
+  answered = new Array(questions.length).fill(false);
+  correct = 0;
+  buildQuiz();
+}
+
+buildQuiz();
+</script>
+</body>
+</html>
