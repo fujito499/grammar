@@ -673,7 +673,7 @@
       <div class="nav-dot" style="background:#7ef2c0"></div> Relative Clauses
     </div>
     <div class="nav-item" data-section="quiz" onclick="show('quiz',this)">
-      <div class="nav-dot" style="background:#ffc96e"></div> แบบทดสอบ
+      <div class="nav-dot" style="background:#ffc96e"></div> แบบทดสอบ ★
     </div>
   </nav>
 
@@ -1263,19 +1263,84 @@
       <div class="section-header">
         <div class="section-num">★</div>
         <div class="section-title">แบบทดสอบ</div>
-        <div class="section-sub">ทดสอบความเข้าใจ — เลือกคำตอบที่ถูกต้อง</div>
+        <div class="section-sub">หัวข้อละ 30 ข้อ พร้อมเฉลยอธิบาย</div>
       </div>
 
-      <div id="quiz-container"></div>
+      <!-- Topic Selector -->
+      <div id="quiz-topic-selector">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:32px">
+          <div class="quiz-topic-btn" onclick="startQuiz('pos')">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--accent);margin-bottom:6px;letter-spacing:0.1em">01</div>
+            <div style="font-weight:600;font-size:15px;margin-bottom:2px">Parts of Speech</div>
+            <div style="font-size:12px;color:var(--muted)">ชนิดของคำ · 30 ข้อ</div>
+          </div>
+          <div class="quiz-topic-btn" onclick="startQuiz('tenses')">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--accent2);margin-bottom:6px;letter-spacing:0.1em">02</div>
+            <div style="font-weight:600;font-size:15px;margin-bottom:2px">Tenses</div>
+            <div style="font-size:12px;color:var(--muted)">กาล 12 ประเภท · 30 ข้อ</div>
+          </div>
+          <div class="quiz-topic-btn" onclick="startQuiz('sentence')">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--accent3);margin-bottom:6px;letter-spacing:0.1em">03</div>
+            <div style="font-weight:600;font-size:15px;margin-bottom:2px">Sentence Structure</div>
+            <div style="font-size:12px;color:var(--muted)">โครงสร้างประโยค · 30 ข้อ</div>
+          </div>
+          <div class="quiz-topic-btn" onclick="startQuiz('passive')">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--accent4);margin-bottom:6px;letter-spacing:0.1em">04</div>
+            <div style="font-weight:600;font-size:15px;margin-bottom:2px">Passive Voice</div>
+            <div style="font-size:12px;color:var(--muted)">ประโยคกรรมวาจก · 30 ข้อ</div>
+          </div>
+          <div class="quiz-topic-btn" onclick="startQuiz('conditional')">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--accent5);margin-bottom:6px;letter-spacing:0.1em">05</div>
+            <div style="font-weight:600;font-size:15px;margin-bottom:2px">Conditionals</div>
+            <div style="font-size:12px;color:var(--muted)">ประโยคเงื่อนไข · 30 ข้อ</div>
+          </div>
+          <div class="quiz-topic-btn" onclick="startQuiz('reported')">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--accent2);margin-bottom:6px;letter-spacing:0.1em">06</div>
+            <div style="font-weight:600;font-size:15px;margin-bottom:2px">Reported Speech</div>
+            <div style="font-size:12px;color:var(--muted)">คำพูดรายงาน · 30 ข้อ</div>
+          </div>
+          <div class="quiz-topic-btn" onclick="startQuiz('modal')">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--accent);margin-bottom:6px;letter-spacing:0.1em">07</div>
+            <div style="font-weight:600;font-size:15px;margin-bottom:2px">Modal Verbs</div>
+            <div style="font-size:12px;color:var(--muted)">กริยาช่วย · 30 ข้อ</div>
+          </div>
+          <div class="quiz-topic-btn" onclick="startQuiz('relative')">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--accent3);margin-bottom:6px;letter-spacing:0.1em">08</div>
+            <div style="font-weight:600;font-size:15px;margin-bottom:2px">Relative Clauses</div>
+            <div style="font-size:12px;color:var(--muted)">อนุประโยคสัมพันธ์ · 30 ข้อ</div>
+          </div>
+        </div>
+      </div>
 
-      <div style="margin-top:32px;display:flex;gap:12px;align-items:center">
-        <button onclick="resetQuiz()" style="font-family:'IBM Plex Sans Thai',sans-serif;background:var(--surface);border:1px solid var(--border);color:var(--text);padding:10px 24px;border-radius:6px;cursor:pointer;font-size:14px;transition:all 0.15s" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='var(--surface)'">เริ่มใหม่</button>
-        <span id="score-display" style="font-size:14px;color:var(--muted)"></span>
+      <!-- Active Quiz -->
+      <div id="quiz-active" style="display:none">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:28px;flex-wrap:wrap">
+          <button onclick="backToTopics()" style="font-family:'IBM Plex Sans Thai',sans-serif;background:transparent;border:1px solid var(--border);color:var(--muted);padding:8px 16px;border-radius:6px;cursor:pointer;font-size:13px">← กลับ</button>
+          <span id="quiz-active-title" style="font-size:16px;font-weight:600"></span>
+          <span id="score-display" style="font-size:13px;color:var(--muted);margin-left:auto"></span>
+        </div>
+        <div id="quiz-container"></div>
+        <div style="margin-top:32px;display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+          <button onclick="resetQuiz()" style="font-family:'IBM Plex Sans Thai',sans-serif;background:var(--surface);border:1px solid var(--border);color:var(--text);padding:10px 24px;border-radius:6px;cursor:pointer;font-size:14px;transition:all 0.15s" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background='var(--surface)'">เริ่มใหม่</button>
+          <div id="result-summary" style="display:none;padding:12px 20px;border-radius:8px;font-size:14px;background:rgba(108,159,255,0.08);border:1px solid rgba(108,159,255,0.2)"></div>
+        </div>
       </div>
     </section>
 
   </main>
 </div>
+
+<style>
+.quiz-topic-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.quiz-topic-btn:hover { background: var(--surface2); border-color: rgba(255,255,255,0.15); transform: translateY(-1px); }
+</style>
 
 <script>
 // NAVIGATION
@@ -1286,70 +1351,330 @@ function show(id, el) {
   el.classList.add('active');
 }
 
-// QUIZ DATA
-const questions = [
-  {
-    q: "She ______ to school every day. (Simple Present — นิสัย)",
-    opts: ["go", "goes", "is going", "went"],
-    ans: 1,
-    exp: "Subject = She (3rd person singular) → ต้องเติม -s → goes"
-  },
-  {
-    q: "By the time he arrived, she ______ already. (Past Perfect)",
-    opts: ["left", "has left", "had left", "was leaving"],
-    ans: 2,
-    exp: "ใช้ Past Perfect เพราะทำก่อนอีกเหตุการณ์ในอดีต → had left"
-  },
-  {
-    q: "If I ______ a million dollars, I would travel the world. (Type 2 Conditional)",
-    opts: ["have", "had", "will have", "would have"],
-    ans: 1,
-    exp: "Type 2 = If + Simple Past → had (สมมติไม่จริงในปัจจุบัน)"
-  },
-  {
-    q: "The window ______ by the storm last night. (Passive — Simple Past)",
-    opts: ["broke", "is broken", "was broken", "has been broken"],
-    ans: 2,
-    exp: "Passive Simple Past = was/were + V3 → was broken"
-  },
-  {
-    q: 'She said, "I am happy." → She said that she ______ happy.',
-    opts: ["is", "was", "were", "has been"],
-    ans: 1,
-    exp: "Reported Speech: am → was (ถอย tense หลังหนึ่งขั้น)"
-  },
-  {
-    q: "You ______ study harder. Your exam is tomorrow! (Modal — แนะนำ)",
-    opts: ["can", "must", "should", "will"],
-    ans: 2,
-    exp: "should = ควร / คำแนะนำ"
-  },
-  {
-    q: "The man ______ car was stolen called the police. (Relative Clause — แสดงเจ้าของ)",
-    opts: ["who", "which", "whose", "whom"],
-    ans: 2,
-    exp: "whose ใช้แสดงความเป็นเจ้าของ → whose car"
-  },
-  {
-    q: "I ______ here for 3 hours when she finally arrived. (Past Perfect Continuous)",
-    opts: ["waited", "was waiting", "had been waiting", "have been waiting"],
-    ans: 2,
-    exp: "Past Perfect Continuous = had been + V-ing ใช้เมื่อทำมาก่อนเหตุการณ์ในอดีต"
-  },
-];
+// ===== QUIZ DATA =====
+const quizData = {
 
-let answered = new Array(questions.length).fill(false);
+  pos: {
+    title: "Parts of Speech — ชนิดของคำ",
+    questions: [
+      { q: "คำว่า 'happiness' จัดเป็น part of speech ประเภทใด?", opts: ["Verb","Adjective","Noun","Adverb"], ans: 2, exp: "happiness เป็นคำนามนามธรรม (abstract noun)" },
+      { q: "ประโยค 'She runs quickly.' คำว่า 'quickly' คือ?", opts: ["Adjective","Adverb","Noun","Verb"], ans: 1, exp: "quickly ขยายกริยา runs จึงเป็น adverb" },
+      { q: "คำใดต่อไปนี้เป็น Pronoun?", opts: ["beautiful","they","slowly","and"], ans: 1, exp: "they เป็น personal pronoun ใช้แทนคำนามพหูพจน์" },
+      { q: "คำว่า 'on' ในประโยค 'The book is on the table.' คือ?", opts: ["Conjunction","Adverb","Preposition","Article"], ans: 2, exp: "on แสดงความสัมพันธ์ระหว่างสองคำนาม จึงเป็น preposition" },
+      { q: "คำใดเป็น Adjective?", opts: ["run","carefully","beautiful","because"], ans: 2, exp: "beautiful ขยายคำนาม จึงเป็น adjective" },
+      { q: "'although' ทำหน้าที่เป็น?", opts: ["Preposition","Conjunction","Adverb","Pronoun"], ans: 1, exp: "although เป็น subordinating conjunction เชื่อมประโยค" },
+      { q: "ในประโยค 'I bought a new car.' คำว่า 'a' คือ?", opts: ["Pronoun","Adjective","Article","Preposition"], ans: 2, exp: "a เป็น indefinite article ใช้นำหน้า singular countable noun" },
+      { q: "คำว่า 'write' ในประโยค 'I write every day.' จัดเป็น?", opts: ["Noun","Adjective","Adverb","Verb"], ans: 3, exp: "write เป็น action verb แสดงการกระทำ" },
+      { q: "คำใดต่อไปนี้ไม่ใช่ Noun?", opts: ["freedom","teacher","quickly","knowledge"], ans: 2, exp: "quickly เป็น adverb ไม่ใช่ noun" },
+      { q: "'very' ในประโยค 'She is very smart.' ทำหน้าที่อะไร?", opts: ["Adjective","Noun","Adverb","Verb"], ans: 2, exp: "very เป็น adverb ขยาย adjective smart" },
+      { q: "ข้อใดคือ Conjunction?", opts: ["under","but","him","slowly"], ans: 1, exp: "but เป็น coordinating conjunction เชื่อมสองประโยค" },
+      { q: "คำว่า 'them' เป็น part of speech ประเภทใด?", opts: ["Noun","Adjective","Adverb","Pronoun"], ans: 3, exp: "them เป็น object pronoun ใช้แทนคำนามพหูพจน์ในตำแหน่งกรรม" },
+      { q: "ในประโยค 'The cat is sleeping.' คำว่า 'The' คือ?", opts: ["Pronoun","Adjective","Article","Preposition"], ans: 2, exp: "the เป็น definite article ชี้เจาะจงว่าแมวตัวใดตัวหนึ่ง" },
+      { q: "คำว่า 'between' จัดเป็น?", opts: ["Adverb","Conjunction","Preposition","Adjective"], ans: 2, exp: "between เป็น preposition แสดงตำแหน่งระหว่างสองสิ่ง" },
+      { q: "คำใดเป็น Abstract Noun?", opts: ["table","dog","love","city"], ans: 2, exp: "love เป็น abstract noun ไม่มีรูปร่างจับต้องได้" },
+      { q: "คำว่า 'golden' ใน 'golden ring' ทำหน้าที่อะไร?", opts: ["Noun","Adverb","Verb","Adjective"], ans: 3, exp: "golden ขยายคำนาม ring จึงเป็น adjective" },
+      { q: "ประโยค 'He spoke loudly.' คำว่า 'loudly' คือ?", opts: ["Adjective","Adverb","Noun","Preposition"], ans: 1, exp: "loudly เป็น adverb of manner ขยายกริยา spoke" },
+      { q: "คำว่า 'or' ใน 'Tea or coffee?' จัดเป็น?", opts: ["Preposition","Pronoun","Conjunction","Adverb"], ans: 2, exp: "or เป็น coordinating conjunction แสดงทางเลือก" },
+      { q: "คำใดเป็น Proper Noun?", opts: ["city","river","Bangkok","country"], ans: 2, exp: "Bangkok เป็น proper noun ชื่อเฉพาะ ต้องขึ้นต้นด้วยตัวพิมพ์ใหญ่" },
+      { q: "'ourselves' จัดเป็น pronoun ประเภทใด?", opts: ["Personal","Possessive","Reflexive","Relative"], ans: 2, exp: "ourselves เป็น reflexive pronoun ย้อนกลับมาหา subject" },
+      { q: "คำว่า 'since' ใน 'I've lived here since 2010.' ทำหน้าที่อะไร?", opts: ["Conjunction","Adverb","Preposition","Noun"], ans: 2, exp: "since นำหน้าเวลา ทำหน้าที่เป็น preposition" },
+      { q: "คำใดไม่ใช่ Adjective?", opts: ["happy","tall","run","cold"], ans: 2, exp: "run เป็น verb ไม่ใช่ adjective" },
+      { q: "ในประโยค 'We enjoyed ourselves.' คำว่า 'ourselves' คือ?", opts: ["Personal pronoun","Reflexive pronoun","Possessive pronoun","Relative pronoun"], ans: 1, exp: "ourselves เป็น reflexive pronoun ย้อนกลับหา we" },
+      { q: "คำว่า 'kindness' เป็น noun ชนิดใด?", opts: ["Concrete noun","Proper noun","Abstract noun","Collective noun"], ans: 2, exp: "kindness เป็น abstract noun เกิดจาก kind + -ness" },
+      { q: "คำว่า 'however' ในประโยค 'It rained; however, we went out.' ทำหน้าที่อะไร?", opts: ["Conjunction","Adverb","Preposition","Adjective"], ans: 1, exp: "however เป็น conjunctive adverb แสดงความขัดแย้ง" },
+      { q: "คำใดเป็น Collective Noun?", opts: ["student","run","team","happy"], ans: 2, exp: "team เป็น collective noun หมายถึงกลุ่มคน" },
+      { q: "'my' ใน 'That is my book.' เป็น pronoun ชนิดใด?", opts: ["Personal","Reflexive","Possessive","Demonstrative"], ans: 2, exp: "my เป็น possessive adjective/pronoun แสดงความเป็นเจ้าของ" },
+      { q: "คำว่า 'despite' ใน 'Despite the rain, she came.' ทำหน้าที่อะไร?", opts: ["Conjunction","Adverb","Preposition","Adjective"], ans: 2, exp: "despite เป็น preposition นำหน้า noun phrase ไม่ใช่ clause" },
+      { q: "คำใดเป็น Demonstrative Pronoun?", opts: ["he","this","who","mine"], ans: 1, exp: "this เป็น demonstrative pronoun ชี้เฉพาะสิ่งที่อยู่ใกล้" },
+      { q: "ประโยค 'The music sounds beautiful.' คำว่า 'beautiful' ทำหน้าที่อะไร?", opts: ["Adverb","Noun","Adjective","Verb"], ans: 2, exp: "beautiful เป็น subject complement ขยาย subject ผ่าน linking verb sounds" },
+    ]
+  },
+
+  tenses: {
+    title: "Tenses — กาล 12 ประเภท",
+    questions: [
+      { q: "She ______ English every day. (นิสัย)", opts: ["study","studies","is studying","studied"], ans: 1, exp: "Simple Present + 3rd person singular → studies" },
+      { q: "They ______ football right now.", opts: ["play","plays","are playing","played"], ans: 2, exp: "กำลังเล่นอยู่ขณะพูด → Present Continuous: are playing" },
+      { q: "I ______ to Paris three times. (เคยไป)", opts: ["went","go","have been","had been"], ans: 2, exp: "ประสบการณ์ที่เคยมี → Present Perfect: have been" },
+      { q: "She ______ for 2 hours before I called. (Past Perfect Continuous)", opts: ["waited","was waiting","had been waiting","has been waiting"], ans: 2, exp: "ทำมาก่อนอีกเหตุการณ์ในอดีต → had been waiting" },
+      { q: "By noon tomorrow, he ______ the report. (Future Perfect)", opts: ["finishes","will finish","will have finished","is finishing"], ans: 2, exp: "จะทำเสร็จก่อนเวลาในอนาคต → will have finished" },
+      { q: "When I arrived, they ______ dinner. (Past Continuous)", opts: ["had","were having","have had","had had"], ans: 1, exp: "กำลังทำอยู่เมื่อตอนนั้น → were having" },
+      { q: "______ you ever ______ sushi? (ประสบการณ์)", opts: ["Did / eat","Have / eaten","Do / eat","Had / eaten"], ans: 1, exp: "ถามประสบการณ์ → Present Perfect: Have you ever eaten" },
+      { q: "She ______ here since 2015. (ต่อเนื่องถึงปัจจุบัน)", opts: ["lives","lived","has lived","had lived"], ans: 2, exp: "since = Present Perfect: has lived" },
+      { q: "I ______ a book when the phone rang.", opts: ["read","was reading","have read","had read"], ans: 1, exp: "กำลังทำอยู่เมื่อมีเหตุการณ์ขัดจังหวะ → was reading" },
+      { q: "He ______ the dishes before his mother came home.", opts: ["washed","washes","had washed","has washed"], ans: 2, exp: "ทำก่อนอีกเหตุการณ์ในอดีต → Past Perfect: had washed" },
+      { q: "The train ______ at 8:00 every morning. (ตารางเวลา)", opts: ["leaves","is leaving","left","has left"], ans: 0, exp: "ตารางเวลาที่แน่นอน → Simple Present: leaves" },
+      { q: "This time next year, I ______ in Japan.", opts: ["live","will live","will be living","am living"], ans: 2, exp: "จะกำลังทำอยู่ในอนาคต → Future Continuous: will be living" },
+      { q: "She ______ the letter yet. (ยังไม่ได้ทำ)", opts: ["didn't send","hasn't sent","doesn't send","hadn't sent"], ans: 1, exp: "yet กับ Present Perfect ประโยคปฏิเสธ → hasn't sent" },
+      { q: "I ______ him since we were children.", opts: ["know","knew","have known","had known"], ans: 2, exp: "รู้จักตั้งแต่อดีตถึงปัจจุบัน → Present Perfect: have known" },
+      { q: "By 2030, scientists ______ a cure for cancer.", opts: ["find","will find","will have found","are finding"], ans: 2, exp: "จะค้นพบก่อนปี 2030 → Future Perfect: will have found" },
+      { q: "She ______ when I knocked on the door.", opts: ["sleeps","slept","was sleeping","had slept"], ans: 2, exp: "กำลังนอนอยู่เมื่อมีเหตุการณ์ขัดจังหวะ → was sleeping" },
+      { q: "They ______ for 3 hours by the time the movie ends.", opts: ["wait","will wait","will have been waiting","are waiting"], ans: 2, exp: "Future Perfect Continuous: will have been waiting" },
+      { q: "I ______ my homework already. Can I go out?", opts: ["finish","finished","have finished","had finished"], ans: 2, exp: "เพิ่งทำเสร็จ ผลยังสัมพันธ์กับปัจจุบัน → Present Perfect: have finished" },
+      { q: "She ______ the same job for 20 years before she retired.", opts: ["has had","had had","had","was having"], ans: 1, exp: "ทำมาก่อน retired → Past Perfect: had had" },
+      { q: "Look at the sky! It ______ soon.", opts: ["rains","rained","is going to rain","has rained"], ans: 2, exp: "เห็นสัญญาณแน่ชัดว่าจะเกิดขึ้น → be going to" },
+      { q: "Water ______ at 100°C. (ความจริงทางวิทยาศาสตร์)", opts: ["boiled","is boiling","boils","has boiled"], ans: 2, exp: "ความจริงทั่วไป → Simple Present: boils" },
+      { q: "I promise I ______ you as soon as I arrive.", opts: ["call","am calling","will call","called"], ans: 2, exp: "สัญญาเกี่ยวกับอนาคต → will call" },
+      { q: "She ______ the piano since she was five.", opts: ["plays","played","has been playing","had been playing"], ans: 2, exp: "ทำต่อเนื่องจากอดีตถึงปัจจุบัน → Present Perfect Continuous" },
+      { q: "He ______ to school yesterday because he was sick.", opts: ["doesn't go","didn't go","hasn't gone","hadn't gone"], ans: 1, exp: "yesterday → Simple Past ปฏิเสธ: didn't go" },
+      { q: "When she woke up, the sun ______ already.", opts: ["rose","has risen","had risen","was rising"], ans: 2, exp: "ดวงอาทิตย์ขึ้นก่อนที่เธอตื่น → Past Perfect: had risen" },
+      { q: "I ______ TV when you called me.", opts: ["watch","watched","was watching","have watched"], ans: 2, exp: "กำลังดูอยู่เมื่อมีเหตุการณ์ขัดจังหวะ → was watching" },
+      { q: "She ______ three cups of coffee this morning. (เช้านี้ยังไม่ผ่านไป)", opts: ["drank","drinks","has drunk","had drunk"], ans: 2, exp: "ช่วงเวลายังไม่สิ้นสุด → Present Perfect: has drunk" },
+      { q: "By the time you read this, I ______ Thailand.", opts: ["leave","left","will leave","will have left"], ans: 3, exp: "จะออกไปแล้วก่อนที่เขาอ่าน → Future Perfect: will have left" },
+      { q: "He ______ English for 10 years and he is still learning.", opts: ["studies","studied","has been studying","had been studying"], ans: 2, exp: "ทำมาต่อเนื่องถึงปัจจุบัน → Present Perfect Continuous" },
+      { q: "I ______ this book before but I don't remember the plot.", opts: ["read","reads","have read","had read"], ans: 2, exp: "เคยอ่านในอดีต ผลสัมพันธ์กับปัจจุบัน → Present Perfect: have read" },
+    ]
+  },
+
+  sentence: {
+    title: "Sentence Structure — โครงสร้างประโยค",
+    questions: [
+      { q: "ประโยค 'I love music.' เป็นประโยคชนิดใด?", opts: ["Compound","Complex","Simple","Compound-complex"], ans: 2, exp: "มี independent clause เดียว → Simple sentence" },
+      { q: "ประโยค 'I studied hard, but I failed the exam.' เป็นประโยคชนิดใด?", opts: ["Simple","Complex","Compound","Compound-complex"], ans: 2, exp: "เชื่อม 2 independent clauses ด้วย but → Compound sentence" },
+      { q: "ประโยค 'Although it rained, we went out.' เป็นประโยคชนิดใด?", opts: ["Simple","Compound","Complex","Compound-complex"], ans: 2, exp: "มี subordinate clause (although it rained) → Complex sentence" },
+      { q: "คำใดเป็น Coordinating Conjunction (FANBOYS)?", opts: ["although","because","but","when"], ans: 2, exp: "but เป็นหนึ่งใน FANBOYS (For, And, Nor, But, Or, Yet, So)" },
+      { q: "ประโยค 'She cried because she was sad, and he comforted her.' เป็นชนิดใด?", opts: ["Simple","Compound","Complex","Compound-complex"], ans: 3, exp: "มีทั้ง subordinate clause (because) และ independent clause 2 อัน (and)" },
+      { q: "Subject-Verb Agreement: 'Each of the students ______ a book.'", opts: ["have","has","are having","were having"], ans: 1, exp: "Each → singular → has" },
+      { q: "Subject-Verb Agreement: 'Neither the teacher nor the students ______ ready.'", opts: ["is","was","are","were"], ans: 2, exp: "Neither...nor → verb สอดคล้องกับ noun ที่อยู่ใกล้กว่า (students = plural) → are" },
+      { q: "ข้อใดเป็น Complex sentence?", opts: ["I ran and she walked.","I ran because I was late.","I ran; she walked.","I ran fast."], ans: 1, exp: "because นำ subordinate clause → Complex sentence" },
+      { q: "Subject-Verb Agreement: 'The news ______ surprising.'", opts: ["are","were","is","have been"], ans: 2, exp: "news ดูเหมือนพหูพจน์แต่เป็น singular noun → is" },
+      { q: "ข้อใดมีโครงสร้าง S + V + O ถูกต้อง?", opts: ["Slowly she ran.","She gave him a gift.","A gift she gave.","Him she gave a gift."], ans: 1, exp: "She (S) gave (V) him a gift (O) ถูกต้องตามโครงสร้าง" },
+      { q: "Subject-Verb Agreement: 'A number of students ______ absent today.'", opts: ["is","was","are","has been"], ans: 2, exp: "'A number of' + plural noun → plural verb → are" },
+      { q: "ประโยคใดเป็น Run-on sentence (ผิดไวยากรณ์)?", opts: ["I like coffee, but she likes tea.","I like coffee she likes tea.","I like coffee; she likes tea.","I like coffee, and she likes tea."], ans: 1, exp: "เชื่อม 2 independent clauses โดยไม่มี conjunction หรือ punctuation → Run-on" },
+      { q: "Subject-Verb Agreement: 'The committee ______ decided on a new policy.'", opts: ["have","has","are","were"], ans: 1, exp: "ในภาษาอเมริกัน committee = singular → has" },
+      { q: "ข้อใดคือ Subordinating Conjunction?", opts: ["and","but","or","although"], ans: 3, exp: "although นำ subordinate clause → subordinating conjunction" },
+      { q: "ประโยค 'Running is fun.' subject คืออะไร?", opts: ["Running","is","fun","ไม่มี subject"], ans: 0, exp: "Running เป็น gerund ทำหน้าที่เป็น subject" },
+      { q: "ข้อใดเป็น Fragment (ประโยคไม่สมบูรณ์)?", opts: ["She left early.","Because she was tired.","He smiled and waved.","They arrived late."], ans: 1, exp: "Because she was tired. ไม่มี main clause จึงเป็น fragment" },
+      { q: "Subject-Verb Agreement: 'Five hundred dollars ______ a lot of money.'", opts: ["are","were","is","have been"], ans: 2, exp: "จำนวนเงินที่มองเป็นหน่วยเดียว → singular → is" },
+      { q: "ประโยค 'The boy who won the prize is my brother.' ประธานหลักคือ?", opts: ["The boy who won the prize","who won the prize","my brother","The boy"], ans: 3, exp: "The boy เป็น head noun ของ subject phrase" },
+      { q: "ข้อใดเป็น Compound sentence?", opts: ["She is tired because she worked late.","She is tired, so she went to bed.","She is tired although she slept.","She is tired whenever she works."], ans: 1, exp: "so เป็น coordinating conjunction เชื่อม 2 independent clauses" },
+      { q: "Subject-Verb Agreement: 'Neither of the answers ______ correct.'", opts: ["are","were","is","have been"], ans: 2, exp: "Neither (of) → singular → is" },
+      { q: "คำว่า 'however' เชื่อมประโยคควรใช้เครื่องหมายอะไรนำหน้า?", opts: ["comma (,)","nothing","semicolon (;)","colon (:)"], ans: 2, exp: "Conjunctive adverb เช่น however ต้องมี semicolon (;) นำหน้า" },
+      { q: "Subject-Verb Agreement: 'Everyone in the classes ______ passed.'", opts: ["have","were","has","are"], ans: 2, exp: "Everyone → singular → has" },
+      { q: "ประโยคใดใช้ parallel structure ถูกต้อง?", opts: ["She likes singing, to dance, and read.","She likes singing, dancing, and reading.","She likes to sing, dancing, and reads.","She likes sing, dance, and reading."], ans: 1, exp: "Parallel structure ต้องใช้รูปแบบเดียวกัน → singing, dancing, reading" },
+      { q: "Subject-Verb Agreement: 'The quality of the apples ______ poor.'", opts: ["are","were","is","have been"], ans: 2, exp: "Subject = quality (singular) ไม่ใช่ apples → is" },
+      { q: "ข้อใดเป็น Adverb clause?", opts: ["The book that I read","Running in the park","Because she studied hard, she passed.","Her beautiful smile"], ans: 2, exp: "Because she studied hard เป็น adverb clause บอกเหตุผล" },
+      { q: "Subject-Verb Agreement: 'Mathematics ______ my favourite subject.'", opts: ["are","were","is","have been"], ans: 2, exp: "Mathematics ดูเหมือนพหูพจน์แต่เป็น singular → is" },
+      { q: "ข้อใดคือ Noun clause?", opts: ["when she arrives","the tall man","What she said surprised me.","running fast"], ans: 2, exp: "What she said ทำหน้าที่เป็น subject (noun clause)" },
+      { q: "Subject-Verb Agreement: 'Either Tom or his friends ______ responsible.'", opts: ["is","was","are","has been"], ans: 2, exp: "Either...or → verb สอดคล้องกับ noun ใกล้สุด (friends = plural) → are" },
+      { q: "ข้อใดเป็นประโยคที่ถูกต้องที่สุด?", opts: ["Him and me went to school.","He and I went to school.","He and me went to school.","Him and I went to school."], ans: 1, exp: "Subject position ต้องใช้ subject pronoun: He and I" },
+      { q: "ประโยค 'To win the competition was her dream.' ทำหน้าที่อะไร?", opts: ["Object","Subject","Complement","Adverb"], ans: 1, exp: "To win the competition เป็น infinitive phrase ทำหน้าที่เป็น subject" },
+    ]
+  },
+
+  passive: {
+    title: "Passive Voice — ประโยคกรรมวาจก",
+    questions: [
+      { q: "เปลี่ยนเป็น Passive: 'She writes a letter.'", opts: ["A letter writes by her.","A letter is written by her.","A letter was written by her.","A letter is being written her."], ans: 1, exp: "Simple Present Passive = is/am/are + V3 → is written" },
+      { q: "เปลี่ยนเป็น Passive: 'They built this house in 1990.'", opts: ["This house is built in 1990.","This house was built in 1990.","This house has been built in 1990.","This house built in 1990."], ans: 1, exp: "Simple Past Passive = was/were + V3 → was built" },
+      { q: "ข้อใดเป็น Passive Voice ที่ถูกต้อง (Present Continuous)?", opts: ["The cake is baking.","The cake is being baked.","The cake being baked.","The cake has been baked."], ans: 1, exp: "Present Continuous Passive = is/am/are being + V3" },
+      { q: "เปลี่ยนเป็น Active: 'The book was read by him.'", opts: ["He reads the book.","He read the book.","He is reading the book.","He has read the book."], ans: 1, exp: "was read → Simple Past Active: He read" },
+      { q: "ข้อใดถูกต้อง (Future Passive)?", opts: ["The letter will written by her.","The letter will be written by her.","The letter is written by her.","The letter was going to write."], ans: 1, exp: "Future Passive = will be + V3" },
+      { q: "เปลี่ยนเป็น Passive: 'She has eaten the cake.'", opts: ["The cake has eaten by her.","The cake is eaten by her.","The cake has been eaten by her.","The cake was eaten by her."], ans: 2, exp: "Present Perfect Passive = has/have been + V3" },
+      { q: "ประโยคใดเป็น Passive Voice?", opts: ["She broke the window.","The window was broken.","She is breaking the window.","She had broken the window."], ans: 1, exp: "The window was broken ไม่มีผู้กระทำในตำแหน่ง subject → Passive" },
+      { q: "เปลี่ยนเป็น Passive: 'They were building a new road.'", opts: ["A new road is being built.","A new road was being built.","A new road has been built.","A new road had been built."], ans: 1, exp: "Past Continuous Passive = was/were being + V3" },
+      { q: "'The window can be opened.' เป็น tense/form อะไร?", opts: ["Simple Present Passive","Modal Passive","Future Passive","Perfect Passive"], ans: 1, exp: "Modal Passive = modal + be + V3 → can be opened" },
+      { q: "เปลี่ยนเป็น Passive: 'She had written the report before noon.'", opts: ["The report was written before noon.","The report had been written before noon.","The report has been written before noon.","The report is written before noon."], ans: 1, exp: "Past Perfect Passive = had been + V3" },
+      { q: "ข้อใดถูกต้อง (Present Perfect Passive)?", opts: ["The food is eaten.","The food was eaten.","The food has been eaten.","The food had been eaten."], ans: 2, exp: "Present Perfect Passive = has/have been + V3" },
+      { q: "เปลี่ยนเป็น Active: 'English is spoken here.'", opts: ["People spoke English here.","People speak English here.","People have spoken English here.","People are speaking English here."], ans: 1, exp: "Simple Present Passive → Active: People speak English here." },
+      { q: "ข้อใดถูกต้อง (Passive กับ Modal must)?", opts: ["This must done.","This must be done.","This must is done.","This must been done."], ans: 1, exp: "Modal Passive = modal + be + V3 → must be done" },
+      { q: "ประโยคใดใช้ Passive ได้เหมาะสมที่สุด?", opts: ["Someone stole my wallet.","My wallet was stolen.","My wallet is stolen by someone.","Someone is stealing my wallet."], ans: 1, exp: "เมื่อไม่รู้ว่าใครทำ หรือไม่ต้องการระบุผู้กระทำ ใช้ Passive ตัดคำว่า by someone ออก" },
+      { q: "เปลี่ยนเป็น Passive: 'He will have finished the project by Monday.'", opts: ["The project will be finished by Monday.","The project will have been finished by Monday.","The project has been finished by Monday.","The project had been finished by Monday."], ans: 1, exp: "Future Perfect Passive = will have been + V3" },
+      { q: "เปลี่ยนเป็น Passive: 'They make Toyota cars in Japan.'", opts: ["Toyota cars are made in Japan.","Toyota cars were made in Japan.","Toyota cars is made in Japan.","Toyota cars made in Japan."], ans: 0, exp: "Simple Present Passive = are + V3 (plural subject)" },
+      { q: "ข้อใด ไม่สามารถ เปลี่ยนเป็น Passive ได้?", opts: ["She wrote a letter.","He read the book.","She arrived early.","They built a house."], ans: 2, exp: "arrive เป็น intransitive verb ไม่มี object จึงเปลี่ยนเป็น Passive ไม่ได้" },
+      { q: "เปลี่ยนเป็น Active: 'The song is being sung by the choir.'", opts: ["The choir sang the song.","The choir sings the song.","The choir is singing the song.","The choir has sung the song."], ans: 2, exp: "is being sung → Present Continuous Active: is singing" },
+      { q: "ข้อใดถูกต้อง (Passive คำถาม)?", opts: ["Was the letter written by her?","Did the letter written by her?","Is the letter writing by her?","Has the letter write by her?"], ans: 0, exp: "คำถาม Simple Past Passive: Was + S + V3?" },
+      { q: "ประโยค 'She was given a prize.' prize ทำหน้าที่อะไร?", opts: ["Subject","Direct object","Indirect object","Object of preposition"], ans: 1, exp: "prize เป็น direct object ที่กลายมาเป็น subject ใน passive" },
+      { q: "เปลี่ยนเป็น Passive: 'The teacher is explaining the lesson.'", opts: ["The lesson is explained by the teacher.","The lesson is being explained by the teacher.","The lesson was being explained by the teacher.","The lesson has been explained by the teacher."], ans: 1, exp: "Present Continuous Passive = is being + V3" },
+      { q: "'The soup smells good.' เปลี่ยนเป็น Passive ได้ไหม?", opts: ["ได้ → Good is smelt by the soup.","ได้ → Good is smelled.","ไม่ได้ เพราะ smell เป็น linking verb","ได้ → The good is smelled by the soup."], ans: 2, exp: "smell ในที่นี้เป็น linking verb ไม่ใช่ action verb จึงเปลี่ยนเป็น Passive ไม่ได้" },
+      { q: "เปลี่ยนเป็น Passive: 'Someone should help him.'", opts: ["He should help by someone.","He should be helped.","He should been helped.","He should be help."], ans: 1, exp: "Modal Passive = should be + V3, ตัด by someone ออกเพราะ indefinite" },
+      { q: "ข้อใดใช้ by-phrase ถูกต้องที่สุด?", opts: ["The book was written by a pen.","The window was broken by John.","The letter was sent by a post.","The road was built by machines."], ans: 1, exp: "by-phrase ระบุผู้กระทำหลัก John เป็น agent ที่ชัดเจน" },
+      { q: "เปลี่ยนเป็น Passive: 'They have repaired the car.'", opts: ["The car has repaired.","The car has been repaired.","The car is repaired.","The car was repaired."], ans: 1, exp: "Present Perfect Passive = has been + V3" },
+      { q: "เปลี่ยนเป็น Active: 'A mistake was made by me.'", opts: ["I am making a mistake.","I made a mistake.","I have made a mistake.","I was making a mistake."], ans: 1, exp: "was made → Simple Past: I made a mistake." },
+      { q: "ข้อใดเป็น Passive ของ Present Perfect Continuous? (หายากมาก)", opts: ["The work is being done.","The work has been being done.","The work was being done.","The work is done."], ans: 1, exp: "Present Perfect Continuous Passive = has been being + V3 (ใช้น้อยมากในทางปฏิบัติ)" },
+      { q: "เปลี่ยนเป็น Passive: 'Nobody knows the answer.'", opts: ["The answer is not known.","The answer is not known by nobody.","The answer doesn't know.","The answer is not knowing."], ans: 0, exp: "Nobody → Passive: The answer is not known. (ไม่ใส่ by nobody)" },
+      { q: "ประโยค 'She was made to work overtime.' ใช้ passive กับกริยาใด?", opts: ["make + object + bare infinitive","make + object + to-infinitive","make + V-ing","make + object + V3"], ans: 0, exp: "Active: made her work (bare inf.) → Passive: was made to work (to-inf.)" },
+      { q: "เปลี่ยนเป็น Passive: 'They will interview her tomorrow.'", opts: ["She will interview tomorrow.","She will be interviewed tomorrow.","She is being interviewed tomorrow.","She has been interviewed tomorrow."], ans: 1, exp: "Future Passive = will be + V3 → will be interviewed" },
+    ]
+  },
+
+  conditional: {
+    title: "Conditionals — ประโยคเงื่อนไข",
+    questions: [
+      { q: "If you heat water to 100°C, it ______. (Type 0)", opts: ["will boil","boils","boiled","would boil"], ans: 1, exp: "Type 0 = ความจริงทั่วไป If + Simple Present, Simple Present" },
+      { q: "If it ______, I will stay home. (Type 1)", opts: ["rains","rained","would rain","has rained"], ans: 0, exp: "Type 1: If + Simple Present, will + V → rains" },
+      { q: "If I ______ a car, I would drive to school. (Type 2)", opts: ["have","had","will have","would have"], ans: 1, exp: "Type 2: If + Simple Past, would + V → had" },
+      { q: "If she ______ harder, she would have passed. (Type 3)", opts: ["studies","studied","had studied","would study"], ans: 2, exp: "Type 3: If + Past Perfect, would have + V3 → had studied" },
+      { q: "If I were you, I ______ the job. (Type 2)", opts: ["take","took","would take","will take"], ans: 2, exp: "Type 2 main clause = would + V → would take" },
+      { q: "ประโยคใดเป็น Type 1 Conditional?", opts: ["If I had money, I would buy it.","If I have time, I will help you.","If I were rich, I would travel.","If she had studied, she would have passed."], ans: 1, exp: "If + Simple Present + will = Type 1" },
+      { q: "If he ______ the bus, he would have been late. (Type 3)", opts: ["misses","missed","had missed","would miss"], ans: 2, exp: "Type 3 if-clause = Past Perfect: had missed" },
+      { q: "If she ______ the truth, everyone would be angry. (Type 2)", opts: ["tells","told","has told","had told"], ans: 1, exp: "Type 2 if-clause = Simple Past: told" },
+      { q: "ข้อใดเป็น Mixed Conditional ที่ถูกต้อง?", opts: ["If I had studied, I will pass.","If I had taken that job, I would be rich now.","If I study, I would pass.","If I studied, I would have passed."], ans: 1, exp: "Mixed: If + Past Perfect (อดีต), would + V (ปัจจุบัน)" },
+      { q: "Unless you ______, you will fail. (= If you don't study...)", opts: ["study","studied","don't study","didn't study"], ans: 0, exp: "Unless = if...not → Unless you study (positive form)" },
+      { q: "If I ______ the lottery, I would donate to charity. (Type 2)", opts: ["win","won","had won","will win"], ans: 1, exp: "Type 2 if-clause = Simple Past: won" },
+      { q: "If they had invited me, I ______ gone. (Type 3)", opts: ["will have","would have","had","would"], ans: 1, exp: "Type 3 main clause = would have + V3: would have gone" },
+      { q: "ประโยคใดเป็น Zero Conditional?", opts: ["If you freeze water, it becomes ice.","If you study, you will pass.","If I were taller, I could reach it.","If she had called, I would have answered."], ans: 0, exp: "Zero Conditional ใช้ Simple Present ทั้งสองข้าง ความจริงทางวิทยาศาสตร์" },
+      { q: "If only I ______ taller! (wish/regret ปัจจุบัน)", opts: ["am","was","were","had been"], ans: 2, exp: "If only + were (subjunctive mood) แสดงความปรารถนาปัจจุบัน" },
+      { q: "Should you need help, ______ me. (Formal Conditional)", opts: ["call","called","calls","calling"], ans: 0, exp: "Should you need... = If you should need... (formal) → call" },
+      { q: "If she ______ earlier, she wouldn't have missed the train. (Type 3)", opts: ["leaves","left","had left","would leave"], ans: 2, exp: "Type 3 if-clause = Past Perfect: had left" },
+      { q: "Provided that you ______ the rules, you can enter. (Type 1)", opts: ["follow","followed","would follow","had followed"], ans: 0, exp: "Provided that = if → Type 1: Simple Present + will" },
+      { q: "If I ______ you, I would apologize. (Type 2 สำนวน)", opts: ["am","was","were","had been"], ans: 2, exp: "If I were you... ใช้ were เสมอ ไม่ว่า subject จะเป็นอะไร (subjunctive)" },
+      { q: "ข้อใดเป็น Type 3 main clause ที่ถูกต้อง?", opts: ["I would buy it.","I would have bought it.","I will buy it.","I buy it."], ans: 1, exp: "Type 3 main clause = would have + V3" },
+      { q: "If it ______ so late, I would invite you for dinner. (Type 2)", opts: ["is not","was not","were not","had not been"], ans: 2, exp: "Type 2: were not (subjunctive mood ใช้ were ไม่ใช่ was)" },
+      { q: "Had she known the truth, she ______ him. (Type 3 Inverted)", opts: ["would forgive","would have forgiven","forgives","forgave"], ans: 1, exp: "Had she known = If she had known → main clause: would have forgiven" },
+      { q: "Unless you ______ now, you'll miss the show.", opts: ["leave","don't leave","left","had left"], ans: 0, exp: "Unless you leave = If you don't leave → Type 1: leave" },
+      { q: "If only she ______ the letter yesterday! (เสียใจกับอดีต)", opts: ["sent","sends","had sent","would send"], ans: 2, exp: "If only + Past Perfect แสดงความเสียใจเกี่ยวกับอดีต" },
+      { q: "ข้อใดใช้ conditional ไม่ถูกต้อง?", opts: ["If she had studied, she would have passed.","If he studies, he will pass.","If I were rich, I would travel.","If she would come, I will be happy."], ans: 3, exp: "ผิด! If-clause ไม่ใช้ would → ควรเป็น If she comes, I will be happy." },
+      { q: "What would you do if you ______ invisible? (Type 2)", opts: ["are","were","had been","will be"], ans: 1, exp: "Type 2 if-clause = Simple Past/were: if you were invisible" },
+      { q: "If you ______ harder, you might pass the exam. (Type 1 mild)", opts: ["try","tried","had tried","would try"], ans: 0, exp: "might แทน will ทำให้ความเป็นไปได้ลดลง แต่โครงสร้าง Type 1 ยังเหมือนเดิม" },
+      { q: "Were I in your position, I ______ accept the offer. (Formal Type 2)", opts: ["will","would","had","am"], ans: 1, exp: "Were I... = If I were... → formal inversion Type 2 → would" },
+      { q: "If they ______ on time, the project would be done now. (Mixed Conditional)", opts: ["start","started","had started","would start"], ans: 2, exp: "Mixed: If + Past Perfect (อดีต) → would + V ไม่มี have (ผลถึงปัจจุบัน)" },
+      { q: "Supposing you ______ the exam, what would you do? (Type 2)", opts: ["fail","failed","had failed","will fail"], ans: 1, exp: "Supposing = if (Type 2) → Simple Past: failed" },
+      { q: "If the medicine ______ available earlier, many lives could have been saved.", opts: ["is","was","had been","were"], ans: 2, exp: "Type 3 if-clause = Past Perfect: had been available" },
+    ]
+  },
+
+  reported: {
+    title: "Reported Speech — คำพูดรายงาน",
+    questions: [
+      { q: '"I am tired." → She said she ______ tired.', opts: ["is","was","were","has been"], ans: 1, exp: "am → was (backshift: Simple Present → Simple Past)" },
+      { q: '"She will come tomorrow." → He said she ______ the next day.', opts: ["will come","would come","comes","came"], ans: 1, exp: "will → would (backshift), tomorrow → the next day" },
+      { q: '"I have finished the work." → She said she ______ the work.', opts: ["has finished","had finished","finished","would finish"], ans: 1, exp: "have finished → had finished (backshift: Present Perfect → Past Perfect)" },
+      { q: '"We are eating dinner." → They said they ______ dinner.', opts: ["are eating","were eating","ate","had eaten"], ans: 1, exp: "are eating → were eating (Present Continuous → Past Continuous)" },
+      { q: '"Close the door!" → She told him ______ the door.', opts: ["close","to close","closing","closed"], ans: 1, exp: "Command: told + object + to-infinitive → to close" },
+      { q: '"Are you ready?" → He asked me if I ______ ready.', opts: ["am","was","are","were"], ans: 1, exp: "Yes/No question: asked if + S + V (backshift) → was" },
+      { q: '"Where do you live?" → She asked me where I ______.',  opts: ["live","lived","am living","had lived"], ans: 1, exp: "Wh-question: asked where + S + V (backshift) → lived" },
+      { q: '"Don\'t touch that!" → He told her ______ that.', opts: ["not touch","not to touch","to not touch","don't touch"], ans: 1, exp: "Negative command: told + object + not to + V" },
+      { q: '"I can swim." → She said she ______ swim.', opts: ["can","could","may","might"], ans: 1, exp: "can → could (backshift)" },
+      { q: '"I went to Bangkok last week." → He said he ______ to Bangkok the week before.', opts: ["went","had gone","goes","has gone"], ans: 1, exp: "went → had gone (Simple Past → Past Perfect), last week → the week before" },
+      { q: '"This is my book." → She said ______ was her book.', opts: ["this","that","it","these"], ans: 1, exp: "this → that (demonstrative change in reported speech)" },
+      { q: '"I will help you." → She promised she ______ help me.', opts: ["will","would","can","could"], ans: 1, exp: "will → would (backshift)" },
+      { q: '"Can you help me?" → She asked if I ______ help her.', opts: ["can","could","may","might"], ans: 1, exp: "Can → Could (backshift + polite)" },
+      { q: '"I have never been to London." → He said he ______ never ______ to London.', opts: ["has / been","had / been","have / been","was / being"], ans: 1, exp: "have never been → had never been (backshift)" },
+      { q: '"We must leave now." → They said they ______ leave then.', opts: ["must","had to","should","could"], ans: 1, exp: "must (obligation) → had to (backshift)" },
+      { q: '"I\'m studying for the exam." → She said she ______ for the exam.', opts: ["is studying","was studying","studied","had studied"], ans: 1, exp: "is studying → was studying (Present Continuous → Past Continuous)" },
+      { q: '"What time is it?" → He asked what time ______.',  opts: ["is it","it is","was it","it was"], ans: 3, exp: "Indirect question: word order เปลี่ยนเป็น S + V และ backshift → it was" },
+      { q: '"Please sit down." → She asked him ______ down.', opts: ["sit","to sit","sitting","sat"], ans: 1, exp: "Please (polite request): asked + object + to-infinitive → to sit" },
+      { q: '"I may be late." → She said she ______ be late.', opts: ["may","might","could","would"], ans: 1, exp: "may → might (backshift)" },
+      { q: '"These are fresh flowers." → She said ______ were fresh flowers.', opts: ["these","those","they","it"], ans: 1, exp: "these → those (demonstrative change: ชี้ไกลขึ้น)" },
+      { q: '"I don\'t understand." → He said he ______ understand.', opts: ["don't","didn't","doesn't","hadn't"], ans: 1, exp: "don't → didn't (backshift: Simple Present → Simple Past)" },
+      { q: '"Have you eaten yet?" → She asked if I ______ yet.', opts: ["have eaten","had eaten","ate","eat"], ans: 1, exp: "Present Perfect → Past Perfect: had eaten" },
+      { q: '"You should rest." → The doctor told me I ______ rest.', opts: ["should","ought to","had to","must"], ans: 0, exp: "should ไม่เปลี่ยนใน reported speech (modal ที่ไม่ backshift)" },
+      { q: '"I\'ll see you tomorrow." → She said she ______ see me the next day.', opts: ["will","would","can","could"], ans: 1, exp: "will → would + tomorrow → the next day" },
+      { q: '"We were watching TV." → They said they ______ TV.', opts: ["are watching","were watching","had been watching","watched"], ans: 2, exp: "were watching → had been watching (Past Continuous → Past Perfect Continuous)" },
+      { q: '"I\'ve been waiting for an hour." → She said she ______ for an hour.', opts: ["has been waiting","had been waiting","was waiting","waited"], ans: 1, exp: "have been waiting → had been waiting (backshift)" },
+      { q: '"Why did you come late?" → He asked me why I ______ late.', opts: ["came","had come","come","was coming"], ans: 1, exp: "did come → had come (Simple Past → Past Perfect in indirect)" },
+      { q: '"It\'s raining here." → She said it ______ there.', opts: ["is raining","was raining","rained","had rained"], ans: 1, exp: "is raining → was raining + here → there" },
+      { q: '"You must not smoke here." → He told me I ______ smoke there.', opts: ["must not","could not","might not","was not to"], ans: 3, exp: "must not (prohibition) → was not to (backshift)" },
+      { q: '"I bought this yesterday." → She said she had bought ______ the day before.', opts: ["this","that","it","those"], ans: 1, exp: "this → that (demonstrative change) + yesterday → the day before" },
+    ]
+  },
+
+  modal: {
+    title: "Modal Verbs — กริยาช่วย",
+    questions: [
+      { q: "You ______ wear a seatbelt. It's the law. (บังคับ)", opts: ["should","could","must","might"], ans: 2, exp: "must แสดงความจำเป็น/บังคับ" },
+      { q: "She ______ speak three languages when she was young. (ความสามารถอดีต)", opts: ["can","could","may","might"], ans: 1, exp: "could แสดงความสามารถในอดีต" },
+      { q: "______ I use your phone? (ขออนุญาตสุภาพ)", opts: ["Could","Should","Would","Must"], ans: 0, exp: "Could สุภาพกว่า Can ในการขออนุญาต" },
+      { q: "You ______ eat so much junk food. It's bad for you. (แนะนำ)", opts: ["must not","should not","cannot","would not"], ans: 1, exp: "should not แสดงคำแนะนำว่าไม่ควรทำ" },
+      { q: "It ______ rain later. Bring an umbrella. (ความเป็นไปได้)", opts: ["must","should","might","would"], ans: 2, exp: "might แสดงความเป็นไปได้ที่ไม่แน่นอน" },
+      { q: "He ______ be at home. His car is in the driveway. (คาดเดา — แน่ใจมาก)", opts: ["might","could","must","should"], ans: 2, exp: "must แสดงการอนุมานที่แน่ใจมาก" },
+      { q: "______ you like some coffee? (เสนอสุภาพ)", opts: ["Could","Should","Would","Must"], ans: 2, exp: "Would you like...? เป็นการเสนออย่างสุภาพ" },
+      { q: "You ______ have told me earlier! (วิจารณ์ — ควรทำแต่ไม่ได้ทำ)", opts: ["must","should","would","could"], ans: 1, exp: "should have + V3 แสดงความเสียใจว่าควรทำแต่ไม่ได้ทำ" },
+      { q: "She ______ have won the prize. She practiced so hard. (คาดเดาอดีต — แน่ใจมาก)", opts: ["should","could","must","might"], ans: 2, exp: "must have + V3 แสดงการอนุมานเกี่ยวกับอดีตที่แน่ใจมาก" },
+      { q: "You ______ not smoke in this area. (ห้ามสิทธิ์ขาด)", opts: ["should","may","must","could"], ans: 2, exp: "must not แสดงการห้ามอย่างเด็ดขาด" },
+      { q: "I ______ swim when I was five. (ความสามารถอดีต)", opts: ["can","could","may","might"], ans: 1, exp: "could แสดงความสามารถในอดีต" },
+      { q: "He ______ have forgotten about the meeting. (ความเป็นไปได้ในอดีต)", opts: ["must","should","might","would"], ans: 2, exp: "might have + V3 ความเป็นไปได้ในอดีตที่ไม่แน่ใจ" },
+      { q: "______ you please be quiet? (ขอร้องสุภาพ)", opts: ["Should","Would","Must","Shall"], ans: 1, exp: "Would you please...? เป็นการขอร้องอย่างสุภาพ" },
+      { q: "You ______ be joking! (ไม่น่าจะเป็นจริง — ปฏิเสธ)", opts: ["must not","cannot","should not","might not"], ans: 1, exp: "cannot (can't) be ใช้แสดงความไม่น่าเป็นไปได้" },
+      { q: "We ______ leave now or we'll miss the train. (ความจำเป็น)", opts: ["might","could","must","should"], ans: 2, exp: "must แสดงความจำเป็นอย่างเร่งด่วน" },
+      { q: "He ______ have taken a different route. (ความเป็นไปได้ในอดีต — ยังไม่แน่ใจ)", opts: ["must","should","could","would"], ans: 2, exp: "could have + V3 ความเป็นไปได้ในอดีต" },
+      { q: "______ we go to the cinema tonight? (เสนอแนะ — we)", opts: ["Would","Should","Shall","Must"], ans: 2, exp: "Shall we...? ใช้เสนอแนะหรือชักชวนกัน (ใช้กับ I/we)" },
+      { q: "I ______ help if you need me. (พร้อมช่วย)", opts: ["must","might","could","would"], ans: 2, exp: "could แสดงความเต็มใจหรือพร้อมจะช่วย" },
+      { q: "She ______ not have known about the surprise party. (คาดเดาอดีตเชิงปฏิเสธ)", opts: ["must","should","would","can"], ans: 0, exp: "must not have + V3 คาดเดาว่าน่าจะไม่ได้ทำ" },
+      { q: "You ______ have a passport to enter the country. (ความจำเป็น)", opts: ["should","must","would","could"], ans: 1, exp: "must แสดงข้อบังคับจำเป็น" },
+      { q: "It ______ be very expensive. Let's check the price first. (อาจจะ — ไม่แน่ใจ)", opts: ["must","should","might","would"], ans: 2, exp: "might แสดงความไม่แน่ใจในราคา" },
+      { q: "You ______ not eat in the library. (ห้าม)", opts: ["should","may","must","could"], ans: 2, exp: "must not ห้ามทำอย่างเด็ดขาด" },
+      { q: "He ______ have studied harder. Now he regrets it. (เสียใจ — ควรทำแต่ไม่ได้ทำ)", opts: ["could","would","should","must"], ans: 2, exp: "should have + V3 เสียใจว่าควรทำแต่ไม่ได้ทำ" },
+      { q: "______ I open the window? It's hot in here. (ขออนุญาต)", opts: ["Shall","Would","Must","Should"], ans: 0, exp: "Shall I...? ใช้ขออนุญาตหรือเสนอทำ (formal)" },
+      { q: "She ______ have been a doctor. She's so good with patients. (อนุมาน)", opts: ["should","must","would","could"], ans: 1, exp: "must have been ใช้อนุมานที่มั่นใจมากจากหลักฐาน" },
+      { q: "You ______ take an umbrella. It looks cloudy. (แนะนำ)", opts: ["must","might","should","would"], ans: 2, exp: "should แนะนำว่าน่าจะทำ" },
+      { q: "I ______ rather stay home tonight. (ความชอบ)", opts: ["could","would","should","must"], ans: 1, exp: "would rather + V1 แสดงความชอบ/ต้องการ" },
+      { q: "They ______ be twins. They look exactly alike. (ข้อสรุปเชิงตรรกะ)", opts: ["might","should","must","could"], ans: 2, exp: "must แสดงข้อสรุปที่แน่ใจมากจากหลักฐาน" },
+      { q: "He ______ lift 200 kg easily. (ความสามารถ — น่าทึ่ง)", opts: ["should","might","must","can"], ans: 3, exp: "can แสดงความสามารถปัจจุบัน" },
+      { q: "You ______ be tired after such a long journey. (คาดเดาสถานการณ์ปัจจุบัน)", opts: ["might","could","must","should"], ans: 2, exp: "must be ใช้อนุมานสถานการณ์ปัจจุบันที่แน่ใจมาก" },
+    ]
+  },
+
+  relative: {
+    title: "Relative Clauses — อนุประโยคสัมพันธ์",
+    questions: [
+      { q: "The man ______ lives next door is a doctor.", opts: ["which","whose","who","whom"], ans: 2, exp: "who ใช้กับคนในตำแหน่ง subject" },
+      { q: "The book ______ I read last week was excellent.", opts: ["who","whom","whose","which"], ans: 3, exp: "which ใช้กับสิ่งของในตำแหน่ง object" },
+      { q: "The student ______ bag was stolen called the police.", opts: ["who","which","whose","whom"], ans: 2, exp: "whose แสดงความเป็นเจ้าของ (student's bag)" },
+      { q: "The city ______ I grew up is very beautiful.", opts: ["which","that","where","when"], ans: 2, exp: "where ใช้กับสถานที่" },
+      { q: "I remember the day ______ we first met.", opts: ["which","that","where","when"], ans: 3, exp: "when ใช้กับเวลา" },
+      { q: "The woman ______ I spoke to was very helpful.", opts: ["who","that","whom","whose"], ans: 2, exp: "whom ใช้กับคนในตำแหน่ง object (หลัง preposition หรือ formal)" },
+      { q: "ประโยคใดใช้ relative clause ถูกต้อง?", opts: ["The man which I met was kind.","The man whom I met was kind.","The man whose I met was kind.","The man when I met was kind."], ans: 1, exp: "whom ใช้กับคนในตำแหน่ง object" },
+      { q: "ในประโยค 'My sister, who lives in London, is a doctor.' เป็น clause ชนิดใด?", opts: ["Defining","Non-defining","Both","Neither"], ans: 1, exp: "มีจุลภาค (,) คั่น → Non-defining clause ให้ข้อมูลเพิ่มเติม" },
+      { q: "ข้อใดใช้ 'that' ได้ถูกต้อง?", opts: ["The man, that I met, was kind.","The book that I read was good.","The student that bag was stolen left.","To whom that I spoke was helpful."], ans: 1, exp: "that ใช้ใน defining clause เท่านั้น ห้ามใช้ใน non-defining" },
+      { q: "The reason ______ she cried is unknown.", opts: ["why","when","where","which"], ans: 0, exp: "why ใช้กับ reason" },
+      { q: "ประโยคใดเป็น Non-defining clause?", opts: ["The book that I bought was expensive.","Tom, who is my best friend, got married.","The car which I drive is old.","The woman whom I love left."], ans: 1, exp: "Tom, who is my best friend, ... มีจุลภาคคั่น → Non-defining" },
+      { q: "This is the house ______ Shakespeare was born.", opts: ["which","where","that","when"], ans: 1, exp: "where ใช้กับสถานที่" },
+      { q: "ข้อใดไม่ถูกต้อง?", opts: ["The man who called is my uncle.","The book which I read is good.","My mother, that cooks well, is home.","The city where I live is nice."], ans: 2, exp: "ห้ามใช้ that ใน non-defining clause → ควรใช้ who" },
+      { q: "The company ______ he works for is very successful.", opts: ["who","whom","which","whose"], ans: 2, exp: "which ใช้กับสิ่งของ (company)" },
+      { q: "She is the singer ______ voice I love most.", opts: ["who","which","whose","whom"], ans: 2, exp: "whose แสดงเจ้าของ (singer's voice)" },
+      { q: "ข้อใด สามารถ ตัด relative pronoun ออกได้?", opts: ["The man who called me is here.","The book that I borrowed was torn.","The student whose work was best won.","The city where I live is hot."], ans: 1, exp: "The book (that) I borrowed... ตัด that ออกได้เพราะ that ทำหน้าที่เป็น object" },
+      { q: "The year ______ I was born was 2000.", opts: ["where","when","which","that"], ans: 1, exp: "when ใช้กับ time expression เช่น the year, the day, the moment" },
+      { q: "ประโยค 'The students who work hard will succeed.' ข้อใดถูกต้อง?", opts: ["เป็น Non-defining clause","เป็น Defining clause","ใช้ that ไม่ได้","ห้ามตัด who ออก"], ans: 1, exp: "ไม่มีจุลภาค + ข้อมูลจำเป็น (ระบุว่านักเรียนกลุ่มใด) → Defining clause" },
+      { q: "I talked to the professor ______ research is famous worldwide.", opts: ["who","which","whose","whom"], ans: 2, exp: "whose แสดงว่า professor มีงานวิจัย (professor's research)" },
+      { q: "ข้อใดใช้ relative clause ผิด?", opts: ["This is the book that I want.","He is the man whom I trust.","She is the girl which I like.","That is the house where I was born."], ans: 2, exp: "which ไม่ใช้กับคน ต้องใช้ whom หรือ who" },
+      { q: "The reason ______ he was late was traffic.", opts: ["when","where","why","that"], ans: 2, exp: "why ใช้กับ the reason (หรือจะใช้ that ก็ได้ แต่ why เหมาะกว่า)" },
+      { q: "ประโยค 'He married a woman. She is a doctor.' รวมกันได้อย่างไร?", opts: ["He married a woman who is a doctor.","He married a woman which is a doctor.","He married a woman whose is a doctor.","He married a woman whom is a doctor."], ans: 0, exp: "who ใช้กับคนในตำแหน่ง subject (She is a doctor)" },
+      { q: "The hotel ______ we stayed was very luxurious.", opts: ["that","which","where","whose"], ans: 2, exp: "where ใช้กับสถานที่ (we stayed at the hotel)" },
+      { q: "ข้อใด ผิด ในเรื่อง Non-defining clause?", opts: ["ใช้จุลภาคคั่น","ให้ข้อมูลเพิ่มเติม","สามารถใช้ that ได้","ตัดออกแล้วประโยคยังสมบูรณ์"], ans: 2, exp: "Non-defining clause ห้ามใช้ that" },
+      { q: "This is the film ______ I was telling you about.", opts: ["who","whom","which","whose"], ans: 2, exp: "which ใช้กับสิ่งของ (film)" },
+      { q: "The man ______ I work with is very funny.", opts: ["who","whom","whose","which"], ans: 1, exp: "I work with him → object position → whom (formal) / who (informal)" },
+      { q: "Bangkok, ______ is the capital of Thailand, is very busy.", opts: ["that","which","who","whose"], ans: 1, exp: "Non-defining clause กับสิ่งของ/สถานที่ → which (ห้าม that)" },
+      { q: "There are times ______ I just want to be alone.", opts: ["when","where","that","which"], ans: 0, exp: "when ใช้กับ time (times)" },
+      { q: "The girl ______ I gave the flowers to smiled.", opts: ["who","whom","whose","which"], ans: 1, exp: "I gave flowers to her → object → whom (formal)" },
+      { q: "ข้อใดใช้ relative clause รวมประโยคได้ถูกต้องที่สุด? 'I visited a museum. It was opened in 1900.'", opts: ["I visited a museum which it was opened in 1900.","I visited a museum which was opened in 1900.","I visited a museum that it was opened in 1900.","I visited a museum who was opened in 1900."], ans: 1, exp: "which was opened in 1900 ถูกต้อง ไม่ใส่ it ซ้ำ เพราะ which แทน it แล้ว" },
+    ]
+  }
+};
+
+// ===== QUIZ ENGINE =====
+let currentTopic = null;
+let currentQuestions = [];
+let answered = [];
 let correct = 0;
+
+function startQuiz(topic) {
+  currentTopic = topic;
+  currentQuestions = quizData[topic].questions;
+  answered = new Array(currentQuestions.length).fill(false);
+  correct = 0;
+  document.getElementById('quiz-topic-selector').style.display = 'none';
+  document.getElementById('quiz-active').style.display = 'block';
+  document.getElementById('quiz-active-title').textContent = quizData[topic].title;
+  document.getElementById('result-summary').style.display = 'none';
+  buildQuiz();
+}
+
+function backToTopics() {
+  document.getElementById('quiz-topic-selector').style.display = 'block';
+  document.getElementById('quiz-active').style.display = 'none';
+}
 
 function buildQuiz() {
   const c = document.getElementById('quiz-container');
   c.innerHTML = '';
-  questions.forEach((q, i) => {
+  currentQuestions.forEach((q, i) => {
     const div = document.createElement('div');
     div.className = 'quiz-q';
     div.id = 'q-' + i;
     div.innerHTML = `
-      <p><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);margin-right:8px;">Q${i+1}</span>${q.q}</p>
+      <p><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);margin-right:8px">Q${i+1}</span>${q.q}</p>
       <div class="quiz-options">
         ${q.opts.map((o, j) => `<button class="quiz-opt" onclick="answer(${i},${j})">${String.fromCharCode(65+j)}. ${o}</button>`).join('')}
       </div>
@@ -1363,7 +1688,7 @@ function buildQuiz() {
 function answer(qi, choice) {
   if (answered[qi]) return;
   answered[qi] = true;
-  const q = questions[qi];
+  const q = currentQuestions[qi];
   const btns = document.querySelectorAll(`#q-${qi} .quiz-opt`);
   btns.forEach((b, j) => {
     if (j === q.ans) b.classList.add('correct');
@@ -1384,22 +1709,32 @@ function answer(qi, choice) {
     fb.textContent = '✗ ผิด — ' + q.exp;
   }
   updateScore();
+  const allDone = answered.every(Boolean);
+  if (allDone) showResult();
 }
 
 function updateScore() {
   const done = answered.filter(Boolean).length;
   const disp = document.getElementById('score-display');
   if (done === 0) { disp.textContent = ''; return; }
-  disp.textContent = `${done}/${questions.length} ข้อ — ถูก ${correct} ข้อ`;
+  disp.textContent = `${done}/${currentQuestions.length} ข้อ — ถูก ${correct} ข้อ`;
+}
+
+function showResult() {
+  const total = currentQuestions.length;
+  const pct = Math.round((correct / total) * 100);
+  let grade = pct >= 80 ? '🏆 ยอดเยี่ยม!' : pct >= 60 ? '👍 ผ่าน — ลองทบทวนข้อที่ผิด' : '📚 ต้องทบทวนเพิ่มอีกหน่อย';
+  const r = document.getElementById('result-summary');
+  r.style.display = 'block';
+  r.innerHTML = `<strong>ผลการทดสอบ:</strong> ${correct}/${total} ข้อ (${pct}%) — ${grade}`;
 }
 
 function resetQuiz() {
-  answered = new Array(questions.length).fill(false);
+  answered = new Array(currentQuestions.length).fill(false);
   correct = 0;
+  document.getElementById('result-summary').style.display = 'none';
   buildQuiz();
 }
-
-buildQuiz();
 </script>
 </body>
 </html>
